@@ -1,0 +1,14 @@
+<map id="Gtk::CellRenderer" name="Gtk::CellRenderer">
+<area shape="rect" id="node6" href="$classGtk_1_1CellRendererPixbuf.html" title="Renders a pixbuf in a cell. " alt="" coords="830,5,1009,32"/>
+<area shape="rect" id="node7" href="$classGtk_1_1CellRendererProgress.html" title="Renders numbers as progress bars. " alt="" coords="823,56,1016,83"/>
+<area shape="rect" id="node8" href="$classGtk_1_1CellRendererSpinner.html" title="Renders a spinning animation in a cell. " alt="" coords="826,107,1013,133"/>
+<area shape="rect" id="node9" href="$classGtk_1_1CellRendererText.html" title="Renders text in a cell. " alt="" coords="837,157,1001,184"/>
+<area shape="rect" id="node13" href="$classGtk_1_1CellRendererToggle.html" title="Renders a toggle button in a cell. " alt="" coords="830,208,1009,235"/>
+<area shape="rect" id="node2" href="$classGtk_1_1Object.html" title="Gtk::Object is the base class for all widgets, and for a few non&#45;widget objects such as Gtk::Adjustme..." alt="" coords="495,107,589,133"/>
+<area shape="rect" id="node3" href="/opt/gnome/share/doc/glibmm-2.4/reference/glibmm-2.4.tag$classGlib_1_1Object.html" title="Glib::Object" alt="" coords="348,107,447,133"/>
+<area shape="rect" id="node4" href="/opt/gnome/share/doc/glibmm-2.4/reference/glibmm-2.4.tag$classGlib_1_1ObjectBase.html" title="Glib::ObjectBase" alt="" coords="169,107,300,133"/>
+<area shape="rect" id="node5" href="/opt/gnome/share/doc/libsigc++-2.0/reference/libsigc++-2.0.tag$structsigc_1_1trackable.html" title="sigc::trackable" alt="" coords="5,107,121,133"/>
+<area shape="rect" id="node10" href="$classGtk_1_1CellRendererAccel.html" title="Renders a keyboard accelerator in a cell. " alt="" coords="1069,107,1241,133"/>
+<area shape="rect" id="node11" href="$classGtk_1_1CellRendererCombo.html" title="Renders a combobox in a cell. " alt="" coords="1064,157,1247,184"/>
+<area shape="rect" id="node12" href="$classGtk_1_1CellRendererSpin.html" title="Renders a spin button in a cell. " alt="" coords="1073,208,1238,235"/>
+</map>

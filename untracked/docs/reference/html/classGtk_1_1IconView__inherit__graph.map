@@ -1,0 +1,13 @@
+<map id="Gtk::IconView" name="Gtk::IconView">
+<area shape="rect" id="node2" href="$classGtk_1_1Container.html" title="Abstract container class. " alt="" coords="216,379,332,405"/>
+<area shape="rect" id="node3" href="$classGtk_1_1Widget.html" title="Abstract Widget (Base class for all widgets) " alt="" coords="169,304,267,331"/>
+<area shape="rect" id="node4" href="$classGtk_1_1Object.html" title="Gtk::Object is the base class for all widgets, and for a few non&#45;widget objects such as Gtk::Adjustme..." alt="" coords="5,229,100,256"/>
+<area shape="rect" id="node5" href="/opt/gnome/share/doc/glibmm-2.4/reference/glibmm-2.4.tag$classGlib_1_1Object.html" title="Glib::Object" alt="" coords="78,155,177,181"/>
+<area shape="rect" id="node6" href="/opt/gnome/share/doc/glibmm-2.4/reference/glibmm-2.4.tag$classGlib_1_1ObjectBase.html" title="Glib::ObjectBase" alt="" coords="127,80,258,107"/>
+<area shape="rect" id="node9" href="/opt/gnome/share/doc/glibmm-2.4/reference/glibmm-2.4.tag$classGlib_1_1Interface.html" title="Glib::Interface" alt="" coords="274,155,389,181"/>
+<area shape="rect" id="node7" href="/opt/gnome/share/doc/libsigc++-2.0/reference/libsigc++-2.0.tag$structsigc_1_1trackable.html" title="sigc::trackable" alt="" coords="135,5,251,32"/>
+<area shape="rect" id="node8" href="$classGtk_1_1Buildable.html" title="A base class for objects that can be built by Gtk::Builder. " alt="" coords="125,229,239,256"/>
+<area shape="rect" id="node10" href="/opt/gnome/share/doc/atkmm-1.6/reference/atkmm-1.6.tag$classAtk_1_1Implementor.html" title="Atk::Implementor" alt="" coords="263,229,399,256"/>
+<area shape="rect" id="node11" href="$classGtk_1_1CellLayout.html" title="An interface for packing cells. " alt="" coords="327,304,450,331"/>
+<area shape="rect" id="node12" href="$classGtk_1_1Scrollable.html" title="This interface is implemented by widgets with native scrolling ability. " alt="" coords="427,379,545,405"/>
+</map>

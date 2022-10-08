@@ -1,0 +1,7 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="/opt/gnome/share/doc/glibmm-2.4/reference/glibmm-2.4.tag$classGlib_1_1ValueBase.html" title="Glib::ValueBase" alt="" coords="5,78,129,105"/>
+<area shape="rect" id="node2" href="/opt/gnome/share/doc/glibmm-2.4/reference/glibmm-2.4.tag$classGlib_1_1ValueBase__Boxed.html" title="Glib::ValueBase_Boxed" alt="" coords="177,78,348,105"/>
+<area shape="rect" id="node3" href="$classGlib_1_1Value_3_01Glib_1_1RefPtr_3_01Gtk_1_1RecentInfo_01_4_01_4.html" title="Glib::Value\&lt; Glib::\lRefPtr\&lt; Gtk::RecentInfo \&gt; \&gt;" alt="" coords="397,5,605,47"/>
+<area shape="rect" id="node4" href="$classGlib_1_1Value_3_01Glib_1_1RefPtr_3_01Gtk_1_1TargetList_01_4_01_4.html" title="Glib::Value\&lt; Glib::\lRefPtr\&lt; Gtk::TargetList \&gt; \&gt;" alt="" coords="401,71,602,112"/>
+<area shape="rect" id="node5" href="$classGlib_1_1Value_3_1_1Cairo_1_1RefPtr_3_1_1Cairo_1_1Surface_01_4_01_4.html" title="Specialization of Glib::Value&lt;&gt; for Cairo::RefPtr&lt;Cairo::Surface&gt;. " alt="" coords="396,136,607,177"/>
+</map>

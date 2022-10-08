@@ -1,0 +1,827 @@
+--- ./../../gtk/src/gtk_signals.defs.orig	2018-09-07 10:44:01.455448103 +0200
++++ ./../../gtk/src/gtk_signals.defs	2018-09-07 11:07:02.205027844 +0200
+@@ -2680,21 +2680,21 @@
+   (default-value "GTK_ICON_SIZE_MENU")
+ )
+ 
+ ;; From GtkClipboard
+ 
+ (define-signal owner-change
+   (of-object "GtkClipboard")
+   (return-type "void")
+   (flags "Run First")
+   (parameters
+-    '("GdkEvent*" "p0")
++    '("GdkEventOwnerChange*" "p0")
+   )
+ )
+ 
+ ;; From GtkColorButton
+ 
+ (define-signal color-set
+   (of-object "GtkColorButton")
+   (return-type "void")
+   (flags "Run First")
+ )
+@@ -2758,21 +2758,21 @@
+   (default-value "FALSE")
+ )
+ 
+ ;; From GtkColorChooser
+ 
+ (define-signal color-activated
+   (of-object "GtkColorChooser")
+   (return-type "void")
+   (flags "Run First")
+   (parameters
+-    '("GdkRGBA*" "p0")
++    '("const-GdkRGBA*" "p0")
+   )
+ )
+ 
+ (define-property rgba
+   (of-object "GtkColorChooser")
+   (prop-type "GParamBoxed")
+   (docs "Current color, as a GdkRGBA")
+   (readable #t)
+   (writable #t)
+   (construct-only #f)
+@@ -2919,21 +2919,21 @@
+ )
+ 
+ (define-signal popdown
+   (of-object "GtkComboBox")
+   (return-type "gboolean")
+   (flags "Run Last, Action")
+ )
+ 
+ (define-signal format-entry-text
+   (of-object "GtkComboBox")
+-  (return-type "const-gchar*")
++  (return-type "gchar*")
+   (flags "Run Last")
+   (parameters
+     '("const-gchar*" "p0")
+   )
+ )
+ 
+ (define-property model
+   (of-object "GtkComboBox")
+   (prop-type "GParamObject")
+   (docs "The model for the combo box")
+@@ -3248,21 +3248,21 @@
+ )
+ 
+ ;; From GtkCssProvider
+ 
+ (define-signal parsing-error
+   (of-object "GtkCssProvider")
+   (return-type "void")
+   (flags "Run Last")
+   (parameters
+     '("GtkCssSection*" "p0")
+-    '("GError*" "p1")
++    '("const-GError*" "p1")
+   )
+ )
+ 
+ ;; From GtkDialog
+ 
+ (define-signal close
+   (of-object "GtkDialog")
+   (return-type "void")
+   (flags "Run Last, Action")
+ )
+@@ -3393,31 +3393,31 @@
+   (return-type "void")
+   (flags "Run Last, Action")
+ )
+ 
+ (define-signal icon-press
+   (of-object "GtkEntry")
+   (return-type "void")
+   (flags "Run Last")
+   (parameters
+     '("GtkEntryIconPosition" "p0")
+-    '("GdkEvent*" "p1")
++    '("const-GdkEventButton*" "p1")
+   )
+ )
+ 
+ (define-signal icon-release
+   (of-object "GtkEntry")
+   (return-type "void")
+   (flags "Run Last")
+   (parameters
+     '("GtkEntryIconPosition" "p0")
+-    '("GdkEvent*" "p1")
++    '("const-GdkEventButton*" "p1")
+   )
+ )
+ 
+ (define-signal preedit-changed
+   (of-object "GtkEntry")
+   (return-type "void")
+   (flags "Run Last, Action")
+   (parameters
+     '("const-gchar*" "p0")
+   )
+@@ -6676,21 +6676,21 @@
+   (of-object "GtkMenuItem")
+   (return-type "void")
+   (flags "Run First")
+ )
+ 
+ (define-signal toggle-size-request
+   (of-object "GtkMenuItem")
+   (return-type "void")
+   (flags "Run First")
+   (parameters
+-    '("gpointer" "p0")
++    '("int*" "p0")
+   )
+ )
+ 
+ (define-signal toggle-size-allocate
+   (of-object "GtkMenuItem")
+   (return-type "void")
+   (flags "Run First")
+   (parameters
+     '("gint" "p0")
+   )
+@@ -7411,32 +7411,32 @@
+   (default-value "FALSE")
+ )
+ 
+ ;; From GtkPlacesSidebar
+ 
+ (define-signal populate-popup
+   (of-object "GtkPlacesSidebar")
+   (return-type "void")
+   (flags "Run First")
+   (parameters
+-    '("GtkWidget*" "p0")
++    '("GtkMenu*" "p0")
+     '("GFile*" "p1")
+     '("GVolume*" "p2")
+   )
+ )
+ 
+ (define-signal open-location
+   (of-object "GtkPlacesSidebar")
+   (return-type "void")
+   (flags "Run First")
+   (parameters
+-    '("GObject*" "p0")
++    '("GFile*" "p0")
+     '("GtkPlacesOpenFlags" "p1")
+   )
+ )
+ 
+ (define-signal show-error-message
+   (of-object "GtkPlacesSidebar")
+   (return-type "void")
+   (flags "Run First")
+   (parameters
+     '("const-gchar*" "p0")
+@@ -7455,41 +7455,41 @@
+   (return-type "void")
+   (flags "Run First")
+ )
+ 
+ (define-signal drag-action-requested
+   (of-object "GtkPlacesSidebar")
+   (return-type "gint")
+   (flags "Run Last")
+   (parameters
+     '("GdkDragContext*" "p0")
+-    '("GObject*" "p1")
+-    '("gpointer" "p2")
++    '("GFile*" "p1")
++    '("GList*" "p2")
+   )
+ )
+ 
+ (define-signal drag-action-ask
+   (of-object "GtkPlacesSidebar")
+   (return-type "gint")
+   (flags "Run Last")
+   (parameters
+     '("gint" "p0")
+   )
+ )
+ 
+ (define-signal drag-perform-drop
+   (of-object "GtkPlacesSidebar")
+   (return-type "void")
+   (flags "Run First")
+   (parameters
+-    '("GObject*" "p0")
+-    '("gpointer" "p1")
++    '("GFile*" "p0")
++    '("GList*" "p1")
+     '("gint" "p2")
+   )
+ )
+ 
+ (define-signal show-other-locations
+   (of-object "GtkPlacesSidebar")
+   (return-type "void")
+   (flags "Run First")
+   (deprecated #t)
+ )
+@@ -7981,21 +7981,21 @@
+   (of-object "GtkPrintOperation")
+   (return-type "void")
+   (flags "Run Last")
+   (parameters
+     '("GtkPrintContext*" "p0")
+   )
+ )
+ 
+ (define-signal create-custom-widget
+   (of-object "GtkPrintOperation")
+-  (return-type "GObject*")
++  (return-type "GtkWidget*")
+   (flags "Run Last")
+ )
+ 
+ (define-signal update-custom-widget
+   (of-object "GtkPrintOperation")
+   (return-type "void")
+   (flags "Run Last")
+   (parameters
+     '("GtkWidget*" "p0")
+     '("GtkPageSetup*" "p1")
+@@ -8797,21 +8797,21 @@
+   (readable #t)
+   (writable #f)
+   (construct-only #f)
+   (default-value "FALSE")
+ )
+ 
+ ;; From GtkScale
+ 
+ (define-signal format-value
+   (of-object "GtkScale")
+-  (return-type "const-gchar*")
++  (return-type "gchar*")
+   (flags "Run Last")
+   (parameters
+     '("gdouble" "p0")
+   )
+ )
+ 
+ (define-property digits
+   (of-object "GtkScale")
+   (prop-type "GParamInt")
+   (docs "The number of decimal places that are displayed in the value")
+@@ -9332,21 +9332,21 @@
+   (docs "The default font family and size to use")
+   (readable #t)
+   (writable #t)
+   (construct-only #f)
+   (default-value "Sans 10")
+ )
+ 
+ (define-property gtk-icon-sizes
+   (of-object "GtkSettings")
+   (prop-type "GParamString")
+-  (docs "List of icon sizes (gtk-menu=16,16:gtk-button=20,20...")
++  (docs "List of icon sizes: gtk-menu=16,16:gtk-button=20,20...")
+   (readable #t)
+   (writable #t)
+   (construct-only #f)
+   (deprecated #t)
+   (default-value "")
+ )
+ 
+ (define-property gtk-modules
+   (of-object "GtkSettings")
+   (prop-type "GParamString")
+@@ -10396,21 +10396,21 @@
+   (parameters
+     '("GtkScrollType" "p0")
+   )
+ )
+ 
+ (define-signal input
+   (of-object "GtkSpinButton")
+   (return-type "gint")
+   (flags "Run Last")
+   (parameters
+-    '("gpointer" "p0")
++    '("double*" "p0")
+   )
+ )
+ 
+ (define-signal output
+   (of-object "GtkSpinButton")
+   (return-type "gboolean")
+   (flags "Run Last")
+ )
+ 
+ (define-signal wrapped
+@@ -10652,39 +10652,39 @@
+   (parameters
+     '("gint" "p0")
+   )
+ )
+ 
+ (define-signal button-press-event
+   (of-object "GtkStatusIcon")
+   (return-type "gboolean")
+   (flags "Run Last")
+   (parameters
+-    '("GdkEvent*" "p0")
++    '("GdkEventButton*" "p0")
+   )
+ )
+ 
+ (define-signal button-release-event
+   (of-object "GtkStatusIcon")
+   (return-type "gboolean")
+   (flags "Run Last")
+   (parameters
+-    '("GdkEvent*" "p0")
++    '("GdkEventButton*" "p0")
+   )
+ )
+ 
+ (define-signal scroll-event
+   (of-object "GtkStatusIcon")
+   (return-type "gboolean")
+   (flags "Run Last")
+   (parameters
+-    '("GdkEvent*" "p0")
++    '("GdkEventScroll*" "p0")
+   )
+ )
+ 
+ (define-signal query-tooltip
+   (of-object "GtkStatusIcon")
+   (return-type "gboolean")
+   (flags "Run Last")
+   (parameters
+     '("gint" "p0")
+     '("gint" "p1")
+@@ -10692,21 +10692,21 @@
+     '("GtkTooltip*" "p3")
+   )
+ )
+ 
+ (define-signal popup-menu
+   (of-object "GtkStatusIcon")
+   (return-type "void")
+   (flags "Run First, Action")
+   (parameters
+     '("guint" "p0")
+-    '("guint" "p1")
++    '("guint32" "p1")
+   )
+ )
+ 
+ (define-signal activate
+   (of-object "GtkStatusIcon")
+   (return-type "void")
+   (flags "Run First, Action")
+ )
+ 
+ (define-property pixbuf
+@@ -11361,53 +11361,53 @@
+   (of-object "GtkTextBuffer")
+   (return-type "void")
+   (flags "Run Last")
+ )
+ 
+ (define-signal mark-set
+   (of-object "GtkTextBuffer")
+   (return-type "void")
+   (flags "Run Last")
+   (parameters
+-    '("GtkTextIter*" "p0")
++    '("const-GtkTextIter*" "p0")
+     '("GtkTextMark*" "p1")
+   )
+ )
+ 
+ (define-signal mark-deleted
+   (of-object "GtkTextBuffer")
+   (return-type "void")
+   (flags "Run Last")
+   (parameters
+     '("GtkTextMark*" "p0")
+   )
+ )
+ 
+ (define-signal apply-tag
+   (of-object "GtkTextBuffer")
+   (return-type "void")
+   (flags "Run Last")
+   (parameters
+     '("GtkTextTag*" "p0")
+-    '("GtkTextIter*" "p1")
+-    '("GtkTextIter*" "p2")
++    '("const-GtkTextIter*" "p1")
++    '("const-GtkTextIter*" "p2")
+   )
+ )
+ 
+ (define-signal remove-tag
+   (of-object "GtkTextBuffer")
+   (return-type "void")
+   (flags "Run Last")
+   (parameters
+     '("GtkTextTag*" "p0")
+-    '("GtkTextIter*" "p1")
+-    '("GtkTextIter*" "p2")
++    '("const-GtkTextIter*" "p1")
++    '("const-GtkTextIter*" "p2")
+   )
+ )
+ 
+ (define-signal begin-user-action
+   (of-object "GtkTextBuffer")
+   (return-type "void")
+   (flags "Run Last")
+ )
+ 
+ (define-signal end-user-action
+@@ -11506,21 +11506,21 @@
+ 
+ ;; From GtkTextTag
+ 
+ (define-signal event
+   (of-object "GtkTextTag")
+   (return-type "gboolean")
+   (flags "Run Last")
+   (parameters
+     '("GObject*" "p0")
+     '("GdkEvent*" "p1")
+-    '("GtkTextIter*" "p2")
++    '("const-GtkTextIter*" "p2")
+   )
+ )
+ 
+ (define-property name
+   (of-object "GtkTextTag")
+   (prop-type "GParamString")
+   (docs "Name used to refer to the text tag. NULL for anonymous tags")
+   (readable #t)
+   (writable #t)
+   (construct-only #t)
+@@ -12724,21 +12724,21 @@
+   )
+ )
+ 
+ (define-signal rows-reordered
+   (of-object "GtkTreeModel")
+   (return-type "void")
+   (flags "Run First")
+   (parameters
+     '("GtkTreePath*" "p0")
+     '("GtkTreeIter*" "p1")
+-    '("gpointer" "p2")
++    '("gint*" "p2")
+   )
+ )
+ 
+ ;; From GtkTreeSelection
+ 
+ (define-signal changed
+   (of-object "GtkTreeSelection")
+   (return-type "void")
+   (flags "Run First")
+ )
+@@ -13523,30 +13523,30 @@
+     '("gboolean" "p0")
+   )
+ )
+ 
+ (define-signal child-notify
+   (of-object "GtkWidget")
+   (return-type "void")
+   (flags "Run First, No Recurse, No Hooks")
+   (detailed #t)
+   (parameters
+-    '("GParam" "p0")
++    '("GParamSpec*" "p0")
+   )
+ )
+ 
+ (define-signal draw
+   (of-object "GtkWidget")
+   (return-type "gboolean")
+   (flags "Run Last")
+   (parameters
+-    '("CairoContext*" "p0")
++    '("cairo_t*" "p0")
+   )
+ )
+ 
+ (define-signal mnemonic-activate
+   (of-object "GtkWidget")
+   (return-type "gboolean")
+   (flags "Run Last")
+   (parameters
+     '("gboolean" "p0")
+   )
+@@ -13601,192 +13601,192 @@
+   (parameters
+     '("GdkEvent*" "p0")
+   )
+ )
+ 
+ (define-signal button-press-event
+   (of-object "GtkWidget")
+   (return-type "gboolean")
+   (flags "Run Last")
+   (parameters
+-    '("GdkEvent*" "p0")
++    '("GdkEventButton*" "p0")
+   )
+ )
+ 
+ (define-signal button-release-event
+   (of-object "GtkWidget")
+   (return-type "gboolean")
+   (flags "Run Last")
+   (parameters
+-    '("GdkEvent*" "p0")
++    '("GdkEventButton*" "p0")
+   )
+ )
+ 
+ (define-signal touch-event
+   (of-object "GtkWidget")
+   (return-type "gboolean")
+   (flags "Run Last")
+   (parameters
+-    '("GdkEvent*" "p0")
++    '("GdkEventTouch*" "p0")
+   )
+ )
+ 
+ (define-signal scroll-event
+   (of-object "GtkWidget")
+   (return-type "gboolean")
+   (flags "Run Last")
+   (parameters
+-    '("GdkEvent*" "p0")
++    '("GdkEventScroll*" "p0")
+   )
+ )
+ 
+ (define-signal motion-notify-event
+   (of-object "GtkWidget")
+   (return-type "gboolean")
+   (flags "Run Last")
+   (parameters
+-    '("GdkEvent*" "p0")
++    '("GdkEventMotion*" "p0")
+   )
+ )
+ 
+ (define-signal delete-event
+   (of-object "GtkWidget")
+   (return-type "gboolean")
+   (flags "Run Last")
+   (parameters
+-    '("GdkEvent*" "p0")
++    '("GdkEventAny*" "p0")
+   )
+ )
+ 
+ (define-signal destroy-event
+   (of-object "GtkWidget")
+   (return-type "gboolean")
+   (flags "Run Last")
+   (parameters
+-    '("GdkEvent*" "p0")
++    '("GdkEventAny*" "p0")
+   )
+ )
+ 
+ (define-signal key-press-event
+   (of-object "GtkWidget")
+   (return-type "gboolean")
+   (flags "Run Last")
+   (parameters
+-    '("GdkEvent*" "p0")
++    '("GdkEventKey*" "p0")
+   )
+ )
+ 
+ (define-signal key-release-event
+   (of-object "GtkWidget")
+   (return-type "gboolean")
+   (flags "Run Last")
+   (parameters
+-    '("GdkEvent*" "p0")
++    '("GdkEventKey*" "p0")
+   )
+ )
+ 
+ (define-signal enter-notify-event
+   (of-object "GtkWidget")
+   (return-type "gboolean")
+   (flags "Run Last")
+   (parameters
+-    '("GdkEvent*" "p0")
++    '("GdkEventCrossing*" "p0")
+   )
+ )
+ 
+ (define-signal leave-notify-event
+   (of-object "GtkWidget")
+   (return-type "gboolean")
+   (flags "Run Last")
+   (parameters
+-    '("GdkEvent*" "p0")
++    '("GdkEventCrossing*" "p0")
+   )
+ )
+ 
+ (define-signal configure-event
+   (of-object "GtkWidget")
+   (return-type "gboolean")
+   (flags "Run Last")
+   (parameters
+-    '("GdkEvent*" "p0")
++    '("GdkEventConfigure*" "p0")
+   )
+ )
+ 
+ (define-signal focus-in-event
+   (of-object "GtkWidget")
+   (return-type "gboolean")
+   (flags "Run Last")
+   (parameters
+-    '("GdkEvent*" "p0")
++    '("GdkEventFocus*" "p0")
+   )
+ )
+ 
+ (define-signal focus-out-event
+   (of-object "GtkWidget")
+   (return-type "gboolean")
+   (flags "Run Last")
+   (parameters
+-    '("GdkEvent*" "p0")
++    '("GdkEventFocus*" "p0")
+   )
+ )
+ 
+ (define-signal map-event
+   (of-object "GtkWidget")
+   (return-type "gboolean")
+   (flags "Run Last")
+   (parameters
+-    '("GdkEvent*" "p0")
++    '("GdkEventAny*" "p0")
+   )
+ )
+ 
+ (define-signal unmap-event
+   (of-object "GtkWidget")
+   (return-type "gboolean")
+   (flags "Run Last")
+   (parameters
+-    '("GdkEvent*" "p0")
++    '("GdkEventAny*" "p0")
+   )
+ )
+ 
+ (define-signal property-notify-event
+   (of-object "GtkWidget")
+   (return-type "gboolean")
+   (flags "Run Last")
+   (parameters
+-    '("GdkEvent*" "p0")
++    '("GdkEventProperty*" "p0")
+   )
+ )
+ 
+ (define-signal selection-clear-event
+   (of-object "GtkWidget")
+   (return-type "gboolean")
+   (flags "Run Last")
+   (parameters
+-    '("GdkEvent*" "p0")
++    '("GdkEventSelection*" "p0")
+   )
+ )
+ 
+ (define-signal selection-request-event
+   (of-object "GtkWidget")
+   (return-type "gboolean")
+   (flags "Run Last")
+   (parameters
+-    '("GdkEvent*" "p0")
++    '("GdkEventSelection*" "p0")
+   )
+ )
+ 
+ (define-signal selection-notify-event
+   (of-object "GtkWidget")
+   (return-type "gboolean")
+   (flags "Run Last")
+   (parameters
+-    '("GdkEvent*" "p0")
++    '("GdkEventSelection*" "p0")
+   )
+ )
+ 
+ (define-signal selection-received
+   (of-object "GtkWidget")
+   (return-type "void")
+   (flags "Run Last")
+   (parameters
+     '("GtkSelectionData*" "p0")
+     '("guint" "p1")
+@@ -13802,30 +13802,30 @@
+     '("guint" "p1")
+     '("guint" "p2")
+   )
+ )
+ 
+ (define-signal proximity-in-event
+   (of-object "GtkWidget")
+   (return-type "gboolean")
+   (flags "Run Last")
+   (parameters
+-    '("GdkEvent*" "p0")
++    '("GdkEventProximity*" "p0")
+   )
+ )
+ 
+ (define-signal proximity-out-event
+   (of-object "GtkWidget")
+   (return-type "gboolean")
+   (flags "Run Last")
+   (parameters
+-    '("GdkEvent*" "p0")
++    '("GdkEventProximity*" "p0")
+   )
+ )
+ 
+ (define-signal drag-leave
+   (of-object "GtkWidget")
+   (return-type "void")
+   (flags "Run Last")
+   (parameters
+     '("GdkDragContext*" "p0")
+     '("guint" "p1")
+@@ -13918,48 +13918,48 @@
+     '("guint" "p5")
+   )
+ )
+ 
+ (define-signal visibility-notify-event
+   (of-object "GtkWidget")
+   (return-type "gboolean")
+   (flags "Run Last")
+   (deprecated #t)
+   (parameters
+-    '("GdkEvent*" "p0")
++    '("GdkEventVisibility*" "p0")
+   )
+ )
+ 
+ (define-signal window-state-event
+   (of-object "GtkWidget")
+   (return-type "gboolean")
+   (flags "Run Last")
+   (parameters
+-    '("GdkEvent*" "p0")
++    '("GdkEventWindowState*" "p0")
+   )
+ )
+ 
+ (define-signal damage-event
+   (of-object "GtkWidget")
+   (return-type "gboolean")
+   (flags "Run Last")
+   (parameters
+-    '("GdkEvent*" "p0")
++    '("GdkEventExpose*" "p0")
+   )
+ )
+ 
+ (define-signal grab-broken-event
+   (of-object "GtkWidget")
+   (return-type "gboolean")
+   (flags "Run Last")
+   (parameters
+-    '("GdkEvent*" "p0")
++    '("GdkEventGrabBroken*" "p0")
+   )
+ )
+ 
+ (define-signal query-tooltip
+   (of-object "GtkWidget")
+   (return-type "gboolean")
+   (flags "Run Last")
+   (parameters
+     '("gint" "p0")
+     '("gint" "p1")

@@ -1,0 +1,16 @@
+<map id="Gtk::RadioToolButton" name="Gtk::RadioToolButton">
+<area shape="rect" id="node2" href="$classGtk_1_1ToggleToolButton.html" title="A Gtk::ToolItem containing a toggle button. " alt="" coords="237,677,401,704"/>
+<area shape="rect" id="node3" href="$classGtk_1_1ToolButton.html" title="A Gtk::ToolItem subclass that displays buttons. " alt="" coords="258,603,381,629"/>
+<area shape="rect" id="node4" href="$classGtk_1_1ToolItem.html" title="The base class of widgets that can be added to ToolShell. " alt="" coords="265,528,374,555"/>
+<area shape="rect" id="node5" href="$classGtk_1_1Bin.html" title="A container with just one child. " alt="" coords="245,453,319,480"/>
+<area shape="rect" id="node6" href="$classGtk_1_1Container.html" title="Abstract container class. " alt="" coords="203,379,319,405"/>
+<area shape="rect" id="node7" href="$classGtk_1_1Widget.html" title="Abstract Widget (Base class for all widgets) " alt="" coords="191,304,290,331"/>
+<area shape="rect" id="node8" href="$classGtk_1_1Object.html" title="Gtk::Object is the base class for all widgets, and for a few non&#45;widget objects such as Gtk::Adjustme..." alt="" coords="5,229,100,256"/>
+<area shape="rect" id="node9" href="/opt/gnome/share/doc/glibmm-2.4/reference/glibmm-2.4.tag$classGlib_1_1Object.html" title="Glib::Object" alt="" coords="77,155,175,181"/>
+<area shape="rect" id="node10" href="/opt/gnome/share/doc/glibmm-2.4/reference/glibmm-2.4.tag$classGlib_1_1ObjectBase.html" title="Glib::ObjectBase" alt="" coords="126,80,257,107"/>
+<area shape="rect" id="node13" href="/opt/gnome/share/doc/glibmm-2.4/reference/glibmm-2.4.tag$classGlib_1_1Interface.html" title="Glib::Interface" alt="" coords="237,155,351,181"/>
+<area shape="rect" id="node11" href="/opt/gnome/share/doc/libsigc++-2.0/reference/libsigc++-2.0.tag$structsigc_1_1trackable.html" title="sigc::trackable" alt="" coords="133,5,249,32"/>
+<area shape="rect" id="node12" href="$classGtk_1_1Buildable.html" title="A base class for objects that can be built by Gtk::Builder. " alt="" coords="125,229,239,256"/>
+<area shape="rect" id="node14" href="/opt/gnome/share/doc/atkmm-1.6/reference/atkmm-1.6.tag$classAtk_1_1Implementor.html" title="Atk::Implementor" alt="" coords="263,229,399,256"/>
+<area shape="rect" id="node15" href="$classGtk_1_1Activatable.html" title="Activatable widgets can be connected to a Gtk::Action and reflect the state of the action..." alt="" coords="344,304,471,331"/>
+</map>

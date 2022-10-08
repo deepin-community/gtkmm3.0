@@ -1,0 +1,7 @@
+<map id="Gtk::CellRendererPixbuf" name="Gtk::CellRendererPixbuf">
+<area shape="rect" id="node2" href="$classGtk_1_1CellRenderer.html" title="CellRenderers are used by Gtk::TreeView columns to render the Gtk::TreeModel column data appropriatel..." alt="" coords="26,304,163,331"/>
+<area shape="rect" id="node3" href="$classGtk_1_1Object.html" title="Gtk::Object is the base class for all widgets, and for a few non&#45;widget objects such as Gtk::Adjustme..." alt="" coords="47,229,142,256"/>
+<area shape="rect" id="node4" href="/opt/gnome/share/doc/glibmm-2.4/reference/glibmm-2.4.tag$classGlib_1_1Object.html" title="Glib::Object" alt="" coords="45,155,144,181"/>
+<area shape="rect" id="node5" href="/opt/gnome/share/doc/glibmm-2.4/reference/glibmm-2.4.tag$classGlib_1_1ObjectBase.html" title="Glib::ObjectBase" alt="" coords="29,80,160,107"/>
+<area shape="rect" id="node6" href="/opt/gnome/share/doc/libsigc++-2.0/reference/libsigc++-2.0.tag$structsigc_1_1trackable.html" title="sigc::trackable" alt="" coords="37,5,153,32"/>
+</map>

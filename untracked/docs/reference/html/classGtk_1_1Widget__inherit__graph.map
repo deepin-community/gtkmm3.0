@@ -1,0 +1,50 @@
+<map id="Gtk::Widget" name="Gtk::Widget">
+<area shape="rect" id="node9" href="$classGtk_1_1Calendar.html" title="Display a calendar and/or allow the user to select a date. " alt="" coords="855,461,965,488"/>
+<area shape="rect" id="node10" href="$classGtk_1_1CellView.html" title="A widget displaying a single row of a TreeModel. " alt="" coords="855,512,965,539"/>
+<area shape="rect" id="node11" href="$classGtk_1_1Container.html" title="Abstract container class. " alt="" coords="852,563,968,589"/>
+<area shape="rect" id="node32" href="$classGtk_1_1DrawingArea.html" title="A widget for custom user interface elements. " alt="" coords="841,917,979,944"/>
+<area shape="rect" id="node33" href="$classGtk_1_1Entry.html" title="A single line text entry field. " alt="" coords="867,968,953,995"/>
+<area shape="rect" id="node36" href="$classGtk_1_1GLArea.html" title="A widget used for drawing with OpenGL. " alt="" coords="859,1019,961,1045"/>
+<area shape="rect" id="node37" href="$classGtk_1_1Invisible.html" title="This widget is used internally in GTK+, and is probably not useful for application developers..." alt="" coords="856,1069,964,1096"/>
+<area shape="rect" id="node38" href="$classGtk_1_1LevelBar.html" title="A bar that can used as a level indicator. " alt="" coords="855,1120,965,1147"/>
+<area shape="rect" id="node39" href="$classGtk_1_1Misc.html" title="A base class for widgets with alignments and padding. " alt="" coords="869,1171,951,1197"/>
+<area shape="rect" id="node43" href="$classGtk_1_1ProgressBar.html" title="A widget which indicates progress visually. " alt="" coords="845,1221,975,1248"/>
+<area shape="rect" id="node44" href="$classGtk_1_1Range.html" title="Base class for widgets which visualize an adjustment. " alt="" coords="863,1272,957,1299"/>
+<area shape="rect" id="node47" href="$classGtk_1_1Separator.html" title="A separator widget. " alt="" coords="852,1323,968,1349"/>
+<area shape="rect" id="node48" href="$classGtk_1_1Spinner.html" title="A widget that displays a spinner animation. " alt="" coords="859,1373,961,1400"/>
+<area shape="rect" id="node49" href="$classGtk_1_1Switch.html" title="A &quot;light switch&quot;&#45;style toggle. " alt="" coords="862,1424,958,1451"/>
+<area shape="rect" id="node2" href="$classGtk_1_1Object.html" title="Gtk::Object is the base class for all widgets, and for a few non&#45;widget objects such as Gtk::Adjustme..." alt="" coords="531,1044,626,1071"/>
+<area shape="rect" id="node3" href="/opt/gnome/share/doc/glibmm-2.4/reference/glibmm-2.4.tag$classGlib_1_1Object.html" title="Glib::Object" alt="" coords="356,1044,455,1071"/>
+<area shape="rect" id="node4" href="/opt/gnome/share/doc/glibmm-2.4/reference/glibmm-2.4.tag$classGlib_1_1ObjectBase.html" title="Glib::ObjectBase" alt="" coords="169,1069,300,1096"/>
+<area shape="rect" id="node7" href="/opt/gnome/share/doc/glibmm-2.4/reference/glibmm-2.4.tag$classGlib_1_1Interface.html" title="Glib::Interface" alt="" coords="348,1095,463,1121"/>
+<area shape="rect" id="node5" href="/opt/gnome/share/doc/libsigc++-2.0/reference/libsigc++-2.0.tag$structsigc_1_1trackable.html" title="sigc::trackable" alt="" coords="5,1069,121,1096"/>
+<area shape="rect" id="node6" href="$classGtk_1_1Buildable.html" title="A base class for objects that can be built by Gtk::Builder. " alt="" coords="521,1095,636,1121"/>
+<area shape="rect" id="node8" href="/opt/gnome/share/doc/atkmm-1.6/reference/atkmm-1.6.tag$classAtk_1_1Implementor.html" title="Atk::Implementor" alt="" coords="511,1145,647,1172"/>
+<area shape="rect" id="node12" href="$classGtk_1_1Bin.html" title="A container with just one child. " alt="" coords="1063,5,1138,32"/>
+<area shape="rect" id="node13" href="$classGtk_1_1Box.html" title="The Box widget organizes child widgets into a rectangular area. " alt="" coords="1061,56,1140,83"/>
+<area shape="rect" id="node14" href="$classGtk_1_1Fixed.html" title="A container which allows you to position widgets at fixed coordinates. " alt="" coords="1057,107,1144,133"/>
+<area shape="rect" id="node15" href="$classGtk_1_1FlowBox.html" title="A container that allows reflowing its children. " alt="" coords="1046,157,1155,184"/>
+<area shape="rect" id="node16" href="$classGtk_1_1Grid.html" title="A container which arranges its child widgets in rows and columns. " alt="" coords="1061,208,1141,235"/>
+<area shape="rect" id="node17" href="$classGtk_1_1HeaderBar.html" title="A box with a centered child. " alt="" coords="1039,259,1162,285"/>
+<area shape="rect" id="node18" href="$classGtk_1_1IconView.html" title="The IconView provides an alternative view of a list model. " alt="" coords="1045,309,1157,336"/>
+<area shape="rect" id="node19" href="$classGtk_1_1Layout.html" title="Infinite scrollable area containing child widgets and/or custom drawing. " alt="" coords="1052,360,1149,387"/>
+<area shape="rect" id="node20" href="$classGtk_1_1ListBox.html" title="A ListBox is a vertical container that contains ListBoxRow children. " alt="" coords="1050,411,1151,437"/>
+<area shape="rect" id="node21" href="$classGtk_1_1MenuShell.html" title="The abstract base class for Gtk::Menu and Gtk::MenuBar. " alt="" coords="1040,461,1161,488"/>
+<area shape="rect" id="node22" href="$classGtk_1_1Notebook.html" title="Container which shows one of its children at a time, in tabbed windows. " alt="" coords="1043,512,1159,539"/>
+<area shape="rect" id="node23" href="$classGtk_1_1Paned.html" title="A widget with two adjustable panes. " alt="" coords="1055,563,1147,589"/>
+<area shape="rect" id="node24" href="$classGtk_1_1Socket.html" title="Container for widgets from other processes. " alt="" coords="1053,613,1149,640"/>
+<area shape="rect" id="node25" href="$classGtk_1_1Stack.html" title="A container that shows only one child at a time. " alt="" coords="1056,664,1145,691"/>
+<area shape="rect" id="node26" href="$classGtk_1_1Table.html" title="Pack widgets in regular patterns. " alt="" coords="1057,715,1144,741"/>
+<area shape="rect" id="node27" href="$classGtk_1_1TextView.html" title="Multi&#45;line text editing widget. " alt="" coords="1045,765,1157,792"/>
+<area shape="rect" id="node28" href="$classGtk_1_1Toolbar.html" title="Bars of buttons and other widgets. " alt="" coords="1051,816,1151,843"/>
+<area shape="rect" id="node29" href="$classGtk_1_1ToolItemGroup.html" title="A ToolItemGroup is used together with ToolPalette to add ToolItems to a palette&#45;like container with d..." alt="" coords="1027,867,1175,893"/>
+<area shape="rect" id="node30" href="$classGtk_1_1ToolPalette.html" title="A ToolPalette allows you to add ToolItems to a palette&#45;like container with various categories and dra..." alt="" coords="1039,917,1163,944"/>
+<area shape="rect" id="node31" href="$classGtk_1_1TreeView.html" title="The TreeView widget displays the model (Gtk::TreeModel) data and allows the user to interact with it..." alt="" coords="1045,968,1157,995"/>
+<area shape="rect" id="node34" href="$classGtk_1_1SearchEntry.html" title="This is a subclass of Gtk::Entry that has been tailored for use as a search entry. " alt="" coords="1035,1019,1166,1045"/>
+<area shape="rect" id="node35" href="$classGtk_1_1SpinButton.html" title="numeric Entry with up/down buttons Slightly misnamed, this should be called a SpinEntry. " alt="" coords="1039,1069,1163,1096"/>
+<area shape="rect" id="node40" href="$classGtk_1_1Arrow.html" title="Produces an arrow pointing in one of the four cardinal directions. " alt="" coords="1055,1120,1146,1147"/>
+<area shape="rect" id="node41" href="$classGtk_1_1Image.html" title="A widget displaying an image. " alt="" coords="1053,1171,1148,1197"/>
+<area shape="rect" id="node42" href="$classGtk_1_1Label.html" title="A widget that displays a small to medium amount of text. " alt="" coords="1057,1221,1145,1248"/>
+<area shape="rect" id="node45" href="$classGtk_1_1Scale.html" title="A slider widget for selecting a value from a range. " alt="" coords="1057,1272,1145,1299"/>
+<area shape="rect" id="node46" href="$classGtk_1_1Scrollbar.html" title="A Scrollbar. " alt="" coords="1045,1323,1156,1349"/>
+</map>

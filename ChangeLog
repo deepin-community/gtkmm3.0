@@ -1,0 +1,1668 @@
+2021-05-21  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  3.24.5
+
+2021-05-19  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Documentation: Let links point to gtkmm-3.0 versions
+
+2021-05-18  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Add dependencies to Doxygen tag files in subprojects
+
+  Doxygen in a main project shall not be called before tag files have been
+  created or updated in subprojects.
+
+2021-05-14  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Fix build as subproject without building documentation
+
+  * meson.build: If mm-common-get is not found in maintainer-mode
+  with 'required: false', try with 'required: true'.
+  Don't try to use tag_file, if documentation is not built.
+  * docs/reference/meson.build: Don't use variables from modules
+  that don't define doxytagfile. These are subprojects that don't build
+  their documentation.
+
+2021-05-11  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  meson.build: Clean up MSVC build flags
+
+  Like the last NMake Makefiles commit, drop the ignores for warnings C4251,
+  C4273 and C4275 as the code is now free of items that trigger those warnings.
+
+2021-05-11  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  NMake Makefiles: Some cleanups and improvements
+
+  Drop the ignores for warnings C4251, C4273 and C4275 from the warnings that we
+  want to ignore, as the code is now free of items that trigger those warnings.
+  
+  Also, reorganize the compiler flags for gtkmm-demo as it is actually the /GL
+  flag that triggered the internal compiler error when it is used with /EHsc on
+  32-bit Visual Studio 2015 and 2017 builds.  Likewise, disable the /LTCG linker
+  option when building Visual Studio 2015 and 2017 32-bit builds.
+
+2021-05-11  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  treemodelcolumn.h: Export class selectively
+
+  This class contains a std::vector<GType> member, so don't export this class as
+  a whole but export its methods individually.
+  
+  This will eliminate warning C4251 and avoid having the built code depend on a
+  specific STL and compiler version
+
+2021-05-11  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  textiter.hg: Correct _WRAP_EQUAL_AND_COMPARE() call
+
+  The decoration macro should be GTKMM_API, not GDKMM_API
+
+2021-05-05  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Subprojects can use meson.add_dist_script() if meson.version() >= 0.58.0
+
+  Call add_dist_script() in a subproject, if meson.version() >= 0.58.0.
+
+2021-04-09  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Meson build: No implicit_include_directories
+
+2021-04-06  Daniel Boles  <dboles.src@gmail.com>
+
+  treeiter—Delete TreeValueProxy copy-assign/warning
+
+  The user-provided, unimplemented operator=(TreeValueProxy const&)
+  existed to prevent the class being copied, but since a long time C++
+  provides a better way to do that: declaring the operator as deleted.
+  
+  Doing this also avoids warnings about the implicitly declared default
+  copy constructor, which is deprecated due to the previously user-given
+  operator=, and since the latter is now deleted the warnings are avoided.
+  
+  https://gitlab.gnome.org/GNOME/gtkmm/-/issues/94
+
+2021-03-26  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Meson build: Make it possible to use gtkmm as a subproject
+
+  gtk, gdk-pixbuf, epoxy, atkmm, cairomm, pangomm and glibmm can be
+  subprojects of gtkmm.
+  It's not guaranteed that gtk3 can be a subproject. See gtk#3775
+
+2021-03-09  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  g[d|t]kmmconfig.h.*: Don't dllimport on MinGW
+
+  This will fix warnings when building items using gdkmm and gtkmm with
+  MinGW/GCC.
+  
+  Fixes: https://gitlab.gnome.org/GNOME/gtkmm/-/issues/90
+  
+  
+  (cherry picked from commit 86685b604692b5d93f51a1d886786352c921dc51)
+2021-02-24  Mingli Yu  <mingli.yu@windriver.com>
+
+  meson.build: use relative path
+
+  Fixes:
+  Fatal error: can't create
+  gdk/gdkmm/libgdkmm-3.0.so.1.1.0.p/_buildarea1_master-wr_build_Userspace_auto-usrmerge_standalone_usrmerge_next_210222_lxbuilds_Har12345_platform_up_intel-x86-64-standard-glibc-std_wrlinux_build_tmp-glibc_work_corei7-64-wrs-linux_gtkmm3_3.24.3-r0_gtkmm-3.24.3_untracked_gdk_gdkmm_timecoord.cc.o: File name too long
+  
+  Signed-off-by: Mingli Yu <mingli.yu@windriver.com>
+
+2021-02-23  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  3.24.4
+
+2021-02-12  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  docs/reference/Doxyfile.in: Remove obsolete entries
+
+2021-02-12  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  treepath.hg: Export comparison operators
+
+  The 'GTKMM_API' decoration was missed from the '_WRAP_COMPARE' item,
+  making the code fail to link for Inkscape on Windows.  Add the needed
+  decoration to fix this.
+  
+  Fixes issue #88.
+
+2020-12-13  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  3.24.3
+
+2020-10-22  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  NMake Makefiles: "Install" the codegen .m4 files
+
+  This way, we can make gtkmm's codegen m4 scripts available to other packages
+  that uses them to generate sources
+
+2020-10-12  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  gtk/gtkmm.h: Fix a typo
+
+2020-10-11  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  gtk/gtkmm.h: Describe how to use gtkmm with meson
+
+2020-10-06  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Documentation: Explain key values
+
+  and add links to gdk/gdkkeysyms.h. Fixes #6
+
+2020-10-06  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  gtk/gtkmm.h: Update the link to libsigc++'s home page
+
+2020-10-01  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Meson build: Fix versioning on macOS
+
+  See libsigcplusplus, pull request 65
+
+2020-09-02  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Remove an obsolete file
+
+  * docs/reference/README: Removed
+  * meson.build: Exclude some git-tracked files from generated
+  tarballs. Works as intended only with a new enough dist-build-scripts.py
+  file from mm-common-get.
+
+2020-08-31  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Gtk::Actionable::get_action_target_value(): Fix ref count
+
+  gtk_actionable_get_action_target_value() does not give the caller a ref.
+  get_action_target_value_vfunc_callback() shall store a copy of the
+  returned value. It shall not give the caller a ref.
+
+2020-08-31  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  NMake Makefiles: Fix gendef invocation
+
+  We ought to pass in the DLL filenames with the '.dll' extension, not just the
+  .lib filenames.
+
+2020-08-28  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  gtk/gtkmm/private/object_p.h: Decorate Gtk::Object_Class with GTKMM_API
+
+  This way, we can fix gtksourceviewmm builds on Visual Studio as well, when
+  gtkmm was not built with gendef.exe
+
+2020-07-23  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  NMake Makefiles: Use Meson-style DLL and .lib naming if requested
+
+  To make things more consistent and less prone to confusion, if 'USE_MESON_LIBS'
+  is specified in the NMake command line, build the DLLs and .lib's that are
+  named like the Meson counterparts.  Binaries built with Meson+Visual Studio
+  and the ones that are built via NMake using 'USE_MESON_LIBS' are
+  interchangeable, provided that they are built with the same Visual Studio
+  version.
+
+2020-07-23  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  NMake Makefiles: Fix build from release tarballs
+
+  Make sure that we do not needlessly re-generate [gdk|gtk]mm[config.h|.rc], and
+  ensure when they are generated, they will always contain the needed version
+  info in them.
+  
+  Also streamline the process so that it is no longer necessary to run the
+  'prep-git-build' target; instead, this file generating process is carried out
+  when necessary when running the 'all' target.
+
+2020-07-08  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  NMake Makefiles: Fix header search paths
+
+  We should also look in $(PREFIX)\include\harfbuzz and $(PREFIX)\include for
+  HarfBuzz (which the Pango headers may include) and Cairo (and libepoxy)
+  respectively, since these are likely locations where the headers are
+  located.
+
+2020-07-08  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  NMake Makefiles: Support ARM64 Windows builds
+
+  This will make the NMake Makefiles capable of building ARM64 binaries of gdkmm
+  and gtkmm, which can be used on Windows 10 on ARM systems.
+
+2020-07-01  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  gdk/meson.build: Set MSVC_TOOLSET_VER in conf data
+
+2020-06-30  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  NMake Makefiles: Fix previous commit
+
+  We should also account for Visual Studio 2015 when we use 'USE_MESON_LIBS' with
+  'USE_COMPAT_LIBS' as well...
+
+2020-06-30  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  MSVC_NMake/README: Update build info
+
+  Note that it is possible to build with Visual Studio with Meson, on the
+  condition that the -mm dependencies are built with Meson as well, since we need
+  their pkg-config files.
+  
+  Also note that the same compiler version should be used to build gtkmm and the
+  -mm dependencies, even for Visual Studio 2015, 2017 and 2019.
+
+2020-06-30  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  NMake Makefiles: Apply toolset version for Meson-built deps
+
+  As the Meson build files for Visual Studio apply the toolset version in the
+  .lib filenames by default, apply the toolset version in the Meson-built -mm
+  .lib files that we link in, just as we did when we we link in the -mm .lib
+  files that was built with NMake, by default.
+  
+  The option 'USE_COMPAT_LIBS' will also mean that we will use the former
+  behavior when we link in the Meson-built -mm .lib's, just as we did when we
+  link in the NMake-built -mm .lib's.
+
+2020-06-30  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  Meson/Visual Studio builds: Include toolset version by default
+
+  This makes the built DLL and .lib's contain the toolset version if the build is
+  carried out using Visual Studio 2015 or later, unless the
+  'msvc14x-parallel-installable' option is set to be false during configuration.
+  
+  The reasoning behind this change is that there are subtle problems when, for
+  instance, one tries to link to a Visual Studio 2015-built glibmm when building
+  gtkmm and libxml++ with Visual Studio 2017 or 2019.  This is unfortunate as
+  Microsoft did try hard to make interoperating between binaries built with
+  Visual Studio 2015, 2017 and 2019 as easy as possible in terms of ABI and API,
+  but unfortunately this hits the corner cases where this compatibility does not
+  work.
+  
+  As the name suggests, this attempts to make Visual Studio 2015, 2017 and 2019
+  builds share a single set of underlying C DLLs easier, while avoiding breakages
+  caused by such subtle differences.
+
+2020-06-30  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  meson: Remove gmmproc-dir option
+
+  It was not used, anyways, since we look for the -mm dependencies only via
+  pkg-config, which will give us the info we need
+
+2020-06-17  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  docs/reference/meson.build: Improve the update for Doxygen >= 1.8.16
+
+  Move some code from meson.build to doc-install.pl (in mm-common),
+  where regular expressions can be used.
+
+2020-06-17  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  NMake Makefiles: Clean up building demo and test programs
+
+  We can group some items together and "generate" the build rules for the test
+  programs instead of hand-writing them one-by-one, since the compiler and linker
+  flags for them are largly the same.
+
+2020-06-17  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  NMake Makefiles: Fix 32-bit Visual Studio 2017 builds
+
+  We need to disable /EHsc in the compiler flags when building gtkmm-demo,
+  because it turns out that the linking will fail with an internal compiler error
+  like on Visual Studio 2015 32-bit builds.
+  
+  The x64 builds on Visual Studio 2015 and later and 32-bit builds on Visual
+  Studio 2019 build and run as expected.
+
+2020-06-17  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  NMake Makefiles: Distinguish between MSVC 2015, 2017 and 2019
+
+  It was found that we cannot completely rely on the fact that Visual
+  Studio 2015~2019 tried very hard to be binary compatible, as there
+  are corner cases when linking against glibmm built with Visual
+  Studio 2015 with builds done by Visual Studio 2017 and 2019 where
+  the code will fail to link and the DLLs are therefore not
+  ABI-compatible.  Note that the libsigc++ DLLs, however, are ABI
+  compatible between these 3 Visual Studio versions.
+  
+  As a result, for the DLL and LIB names, use 'vc140' for Visual Studio
+  2015 builds, 'vc141' for Visual Studio 2017 builds and 'vc142' for
+  Visual Studio 2019 builds, according to the toolset versions as defined
+  by Microsoft.
+  
+  For people that may have previously built gtkmm (and glibmm) with Visual
+  Studio 2017 or 2019, which had 'vc140' in the built .lib and DLL, an NMake
+  option 'USE_COMPAT_LIBS' is added to make building such binaries with
+  'vc140' easier, if needed.
+
+2020-06-15  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  docs/reference/Doxyfile.in: Remove PERL_PATH
+
+  Doxygen since version 1.8.0 does not use PERL_PATH and MSCGEN_PATH.
+
+2020-06-15  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  docs/reference/meson.build: Update for Doxygen >= 1.8.16
+
+  Doxygen 1.8.16 and later does not store tag file names in the html files.
+  This requires changes in meson.build and in doc-install.pl (in mm-common).
+  Otherwise references to other modules won't be updated in the html files
+  when they are installed.
+
+2020-06-05  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  README: Update with instructions for building gtkmm
+
+2020-05-18  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  NMake Makefiles: Remove pkg-ver.mak
+
+  That file is generated and was added to the repository by accident.
+
+2020-05-15  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  Meson: Fix building when gendef.exe is used
+
+  When gendef.exe is used, the gtkmm library must link to the gdkmm library, as
+  we do when gendef.exe is not used.  Also, make sure that we do apply
+  '-DGDKMM_USE_GENDEF' and '-DGTKMM_USE_GENDEF' as necessary
+
+2020-05-15  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  NMake Makefiles: Support building from Meson-generated tarballs
+
+  Make the build files look for the sources in untracked/ when needed.  One may
+  need to run 'nmake /f Makefile.vc CFG=<CFG> prep-git-build' prior to building.
+
+2020-05-15  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  Meson: Use '-utf-8' for the the MSVC C compiler
+
+  We are also generating a GResource C file that will be compiled, so also use
+  the -utf-8 compiler flag for the C compiler too
+
+2020-05-15  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  Meson: Fix linking demos and tests on Visual Studio
+
+  GTK (and therefore gtkmm) applications require a linker flag
+  '-entry:mainCRTStartup' if building with 'gui_app' is set to be true (which
+  means, we are using /subsystem:windows in the linker flags on Visual Studio)
+  unless a WinMain() is defined in the individual application's sources.
+  
+  This fixes the build of such programs by adding this linker flag where it is
+  needed.
+
+2020-05-15  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  Meson: Ignore more warnings on Visual Studio
+
+  We can safely ignore warnings C4251, C4273 and C4275 as we are sure that we
+  want to use __declspec(dllimport) on the libraries that we depend upon, and
+  even with the C++11 versions, we are basically tied to the same CRT as Visual
+  Studio 2015 or later is required to build the C++11 branches of the the -mm
+  dependencies fully.
+  
+  We can also ignore warning C4805 since a 'gboolean' is defined to mimic a
+  'bool'.
+
+2020-05-15  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  [gdk|gtk]mmconfig.h.meson: Define [GDK|GTK]MM_API appropriately
+
+  Like in the [gdk|gtk]mmconfig.h.in files, we want to put the definitions of
+  [GDK|GTK]MM_API in there appropriately, so that we may be able to build without
+  gendef.exe
+
+2020-05-15  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  Meson: Clean-up and fix dependency search
+
+  Since we have Meson build files for the C++ dependencies, just use the normal
+  dependency search via pkg-config for all the -mm dependencies.  This also
+  includes looking for atkmm, unless we request not to.
+  
+  We do, however, want to look for gtk+-unix-print-3.0 only if we are not
+  building on Windows (at least), becuase there is no way that it will be there
+  on Windows.
+  
+  Also clean up the parts where we decide whether to build gdkmm/gtkmm as a
+  shared library directly without using gendef.exe.
+
+2020-05-15  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Add support for building gtkmm with Meson
+
+  gtkmm-3.0 can be built with either Autotools or Meson.
+  New files have been copied from glibmm-2.4 and atkmm-1.6 and modified.
+  
+  See MR !24
+
+2020-05-13  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  NMake Makefiles: Ignore warning C4273
+
+  We are likely using the dll-interface for our builds here, which we know pretty
+  well, so we can just ignore this warning here too, as our builds here are tied
+  to the CRT version
+
+2020-05-13  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  NMake Makefiles: Export symbols without gendef if possible
+
+  We check to see whether we have a new-enough gmmproc that is capable of
+  generating the headers from the .hg templates with function decorations
+  at places where they need to be.  If it is, we skip building gendef and
+  use __declspec(dllexport) to export the needed symbols.
+  
+  Otherwise, we continue to use gendef.exe to export symbols, as we did
+  before.
+
+2020-05-13  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  gtk/gtkmm/*.h: Mark functions with GTKMM_API
+
+  If gmmproc is new enough to generate the full sources from the .hg files
+  with GTKMM_API applied to all applicable places, we can use this to
+  export symbols without the need to use gendef.exe.
+  
+  The build-time check to check if gmmproc is new enough will be in an
+  upcoming commit.
+
+2020-05-13  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  gtk/src/*.hg: Mark classes and functions with GTKMM_API
+
+  Mark all the classes and methods/functions (if applicable) with
+  GTKMM_API so that we can use it to export symbols, if gmmproc is new
+  enough to apply GTKMM_API to the _WRAP_ENUM, _WRAP_GERROR, _WRAP_EQUAL*
+  and _CLASS_* items.
+  
+  The check on whether gmmproc is new enough will be in an upcoming
+  commit.
+
+2020-05-13  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  tools/m4/class_gtkobject.m4: Allow applying decorations
+
+  This updates the _CLASS_GTKOBJECT m4 macro so that we can decorate the
+  declarations of classes and wrap functions with decorations so that we
+  can use them to export symbols via defining those decorations with
+  compiler directives.
+
+2020-05-13  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  gdk/gdkmm/*.h: Mark functions with GDKMM_API
+
+  If gmmproc is new enough to generate the full sources from the .hg files
+  with GDKMM_API applied to all applicable places, we can use this to
+  export symbols without the need to use gendef.exe.
+  
+  The build-time check to check if gmmproc is new enough will be in an
+  upcoming commit.
+
+2020-05-13  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  gdk/src/*.hg: Mark classes and functions with GDKMM_API
+
+  Mark all the classes and methods/functions (if applicable) with
+  GDKMM_API so that we can use it to export symbols, if gmmproc is new
+  enough to apply GDKMM_API to the _WRAP_ENUM, _WRAP_GERROR and _CLASS_*
+  items.
+  
+  The check on whether gmmproc is new enough will be in an upcoming
+  commit.
+
+2020-05-13  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  gtk/gtkmmconfig.h.in: Re-organize GTKMM_API definitions
+
+  This way, we can update the public headers and use this macro to export
+  symbols without using gendef if the classes and methods are marked
+  adequately.
+
+2020-05-13  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  gdk/gdkmmconfig.h.in: Add GDKMM_API
+
+  This enables us to use this macros later in public headers so that we
+  can export symbols from the DLLs using compiler directives, instead of
+  gendef, if we marked classes and APIs/methods sufficiently.
+
+2020-05-13  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  NMake Makefiles: Fix previous commit on /utf-8
+
+  The previous commit only meant "Visual Studio 2017 or later", where it should
+  have been "Visual Studio 2015 or later".  Doh :|
+
+2020-05-13  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  NMake Makefiles: Fix build rules
+
+  Make sure that the cmd.exe 'if not...' statements are correct.
+
+2020-05-13  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  NMake Makefiles: Use /utf-8 if available
+
+  This flag is provided on Visual Studio 2015 and later, so that it will help to
+  work around unicode handling issues that occur when building on East Asian
+  locales, that is demonstrated by error/warning C4819.
+  
+  Disabling warning C4828 is meant for gendef.exe, which comes as a consequence
+  of using /utf-8.
+
+2020-05-10  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  gtk/gtkmm/filelist.am: Remove border.h
+
+  border.h and border.cc are generated files since about 10 years.
+  border.hg is listed in gtk/src/filelist.am.
+
+2020-05-10  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  docs/reference/images/stock: Remove .svg files
+
+  There are about 200 unused .svg files. Remove them. Stock items are
+  deprecated. They are removed in gtk4 and gtkmm4.
+  
+  When Meson support is added, and tarballs are created with 'ninja dist',
+  all files stored in git will be included in the tarballs unless
+  removed by a custom command. It's easier to remove unused files
+  from the git repo.
+
+2020-05-09  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Fix build with X11 backend disabled
+
+  * configure.ac:
+  * gdk/gdkmmconfig.h.in: Define GDKMM_X11_BACKEND_ENABLED if X11 API
+  shall be built.
+  * gtk/src/plug.hg:
+  * gtk/src/socket.hg: Enable in wrap_init.cc if GDKMM_X11_BACKEND_ENABLED
+  is defined. (Was enabled if GDK_WINDOWING_X11 was defined.)
+  
+  This was partly fixed 8 years ago. See Bugzilla #678883. But it failed if
+  the X11 backend was available in gtk, but X11-only code shall still not
+  be built in gtkmm. (configuration with --enable-x11-backend=no)
+
+2020-05-06  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  NMake Makefiles: Allow linking to more Meson-built items
+
+  atkmm and cairomm recently gained Meson build files, so add their libary
+  and DLL names to the NMake Makefiles so that we can easily link to them
+  when we use USE_MESON_LIBS in the NMake command line.
+
+2020-05-06  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  NMake Makefiles: Avoid an Internal Compiler Error
+
+  On Visual Studio 2015 32-bit, the compiler crashes while building
+  gtkmm3-demo with /EHsc enabled, so disable that if we are on Visual
+  Studio 2015 32-bit.
+
+2020-04-13  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  NMake Makefiles: Fix test program build rules
+
+  We want to make sure that we really do re-link the test programs if either
+  or both of gdkmm and gtkmm were rebuilt.
+  
+  Also, remove repeated use of /wd4275, since we are using that throughout
+  the build of gtkmm.
+
+2020-04-10  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  NMake Makefiles: Mention about the 'prep-git-build' target
+
+  Let people know how it may be used to build from GIT checkouts.
+
+2020-04-10  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  NMake Makefiles: Fix headers 'install'
+
+  The previous update accidentily removed the parts where we copy the
+  deprecated header files, so we want to restore that.
+  
+  We also want to streamline whether we copy the deprecated hand-written
+  headers by whether we include deprecated items in the build.
+
+2020-04-08  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  NMake Makefiles: Update build info
+
+  Tell people about the build options USE_MESON_LIBS and
+  GMMPROC[_PANGO|_ATK]_DIR.
+
+2020-04-08  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  NMake Makefiles: Support linking to Meson-built -mm deps
+
+  This makes it easier for people that want to build dependencies with
+  Meson as far as possible, by adding an USE_MESON_LIBS NMake option.
+  
+  Note that by using USE_MESON_LIBS at this time of writing, libsigc++,
+  glibmm and pangomm should be built by Meson, and atkmm and cairomm
+  should also link to the Meson-built variants of glibmm and libsigc++ as
+  well (as atkmm and cairomm do not yet have Meson build files).
+
+2020-04-08  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  NMake Makefiles: Speed up builds
+
+  Just use 'md' to create the intermediate build directories, so that we
+  do not need to re-load NMake Makefile stuff that often, so this should
+  make things build faster.
+  
+  This also enables us to clean up generate-msvc.mak as well.
+
+2020-04-08  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  NMake Makefiles: Fix 'nmake tests'
+
+  Make sure that we have all the rules for the various test programs
+  that are listed by their directories in $(srcroot)/tests
+
+2020-04-08  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  NMake Makefiles: Fix up 'nmake clean'
+
+  Look instead for the build directories by using the dirname's in
+  $(srcroot)/tests, and constructing the IntDir paths from them.
+
+2020-04-06  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  NMake Makefiles: Silence some warnings
+
+  Enable /EHsc so that we do not receive warning C4577 for constexpr
+  usage.
+  
+  Also disable warnings C4251 and C4275 as they relate to whether we are
+  using __declspec(dllimport) for the public symbols in the glibmm
+  headers, when building against glibmm 2.64.0 or later.  Since we know
+  what we are indeed going to use __declspec(dllimport) as we build against
+  glibmm 2.64.0 or later, we can just ignore those warnings.
+
+2020-04-06  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  NMake Makefiles: Add rules to generate sources
+
+  This way, we are now able to build directly from a GIT checkout by first
+  running the 'prep-git-build' target before running the NMake build
+  itself.
+  
+  This will require PERL (with XML::Parser) and some common UNIX utilities
+  such as 'cp' and 'rm' in order to run gmmproc from glibmm.  Note that
+  the m4 files for atkmm and pangomm used for their code generation are
+  required as well.
+
+2020-04-06  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  NMake Makefiles: Add rules to generate versioned items
+
+  This adds rules to generate [gdk|gtk]mm/[gdk|gtk]mm.rc and
+  [gdk|gtk]mm/[gdk|gtk]mmconfig.h from their .in counterparts by reading
+  from configure.ac.
+
+2020-04-06  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  NMake Makefiles: Separate OutDir and IntDir by PDB version
+
+  This way, we reduce the likelyhood that object files built by different
+  toolset versions get mixed up with the ones built by other toolset
+  versions, which can well be a source of trouble.
+
+2020-04-05  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  NMake Makefiles: Standardize on PDB version
+
+  Make the default prefix relate to the PDB version, not the Visual Studio
+  version.  This is becuase the dependent C++-11 -mm libraries already did
+  so.
+
+2020-04-05  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  NMake Makefiles: Get rid of references to Vulkan
+
+  Only the master (gtk-4) branch use Vulkan, so we don't need these here.
+
+2020-01-18  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Gtk::TreeView::append_column() doc: Modify the code exmaple
+
+2020-01-18  Pavlo Solntsev  <p.sun.fun@gmail.com>
+
+  Gtk::TreeView::append_column() doc: Add code example
+
+2020-01-02  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  GLArea demo: Fix a crash
+
+  Fixes #63
+
+2019-12-13  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Update the GLArea demo
+
+  Similar fixes have been made to the GLArea demo in gtk.
+  The replacement of m_Vao by m_Buffer in some methods has been performed
+  only in gtk4, but it would be appropriate to do it also in gtk3.
+
+2019-12-01  Daniel Boles  <dboles@src.gnome.org>
+
+  tests/builder: Test derived props declared in C++,
+
+  by giving DerivedButton one and then setting it in the Builder .ui file.
+
+2019-11-24  Daniel Boles  <dboles.src@gmail.com>
+
+  tests/builder: Default-init members at declaration
+
+  as that is safer than having to remember to default-construct pointers
+  in every constructor overload—& getting undefined behaviour if we don’t.
+
+2019-11-24  Daniel Boles  <dboles.src@gmail.com>
+
+  tests/builder: Fix icon_name to const& and shorten
+
+  …the way of declaring that it should default to a default-init’d string.
+  
+  It didn’t make sense to pass a const value, so make it a const reference
+  as per basically everywhere else that we take string parameters.
+
+2019-11-24  Daniel Boles  <dboles.src@gmail.com>
+
+  gtk-demo/demowindow—Don't use C++14 auto deduction
+
+  I broke this in 152fe12c6fe2960c98665c488d6d48a1d9e11f8b back in 2017 :O
+  It seems it only got noticed now I set warnings as errors & `make check`
+  
+  >>>
+  /home/daniel/jhbuild/checkout/gnome/gtkmm-3/demos/gtk-demo/demowindow.cc:54:1:
+  error: ‘demo_columns’ function uses ‘auto’ type specifier without trailing return type
+     54 | const auto& demo_columns()
+        | ^~~~~
+  /home/daniel/jhbuild/checkout/gnome/gtkmm-3/demos/gtk-demo/demowindow.cc:54:1:
+  note: deduced return type only available with ‘-std=c++14’ or ‘-std=gnu++14’
+  >>>
+
+2019-11-19  Daniel Boles  <dboles.src@gmail.com>
+
+  Button: Explain how to unset image via prop proxy,
+
+  since without being able to add ABI we cannot add unset_image() for that
+  
+  https://gitlab.gnome.org/GNOME/gtkmm/issues/58
+  https://gitlab.gnome.org/GNOME/gtkmm/merge_requests/22#note_650284
+
+2019-11-19  Daniel Boles  <dboles.src@gmail.com>
+
+  Button: Remove mentions of NULL args @ set_image()
+
+  ...by copying the documentation generated from the C docs and fixing it
+  up, because neither a string nor a Widget& in C++ can be NULL/nullptr.
+  
+  The documentation as generated and previously left in the .h file was:
+  
+  >>>
+  ```cpp
+    /** Set the image of @a button to the given widget. The image will be
+     * displayed if the label text is <tt>nullptr</tt> or if
+     * Gtk::Button::property_always_show_image() is <tt>true</tt>. You don’t have to call
+     * Gtk::Widget::show() on @a image yourself.
+     *
+     * @newin{2,6}
+     *
+     * @param image A widget to set as the image for the button, or <tt>nullptr</tt> to unset.
+     */
+  ```
+  >>>
+  
+  https://gitlab.gnome.org/GNOME/gtkmm/issues/58
+  https://gitlab.gnome.org/GNOME/gtkmm/merge_requests/22
+
+2019-11-18  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Avoid unnecessary conversions between std::string and Glib::ustring
+
+  and make necessary conversions explicit.
+
+2019-11-14  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Gtk::Application, Window: Improve some documentation
+
+  Improve the description of Application::add_window() and
+  Window::set_application(), making it clear that they differ as to what
+  happens when a window is hidden.
+  
+  Fixes #56
+
+2019-10-24  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  3.24.2
+
+2019-10-24  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Makefile.am: Don't distribute PORTING
+
+2019-10-24  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Remove PORTING
+
+  It's obsolete and does not contain any useful information.
+
+2019-09-18  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Gtk::Builder docs: Describe how to use together with Glib::Property
+
+2019-08-13  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  demos: Fix the source code listing
+
+2019-08-12  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Gdk::PixbufAnimation[Iter]: Disable warnings from deprecated GTimeVal
+
+  GTimeVal has been deprecated in glib. Methods that use GTimeVal or
+  Glib::TimeVal can't be deprecated in the stable gtkmm-3-24 branch now.
+  This patch makes it possible to build gtkmm-3.24.x against the newest glib.
+
+2019-07-24  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Gtk: Fix ownership of some GLists
+
+  * gtk/src/icontheme.ccg: list_icons(): Glib::OWNERSHIP_SHALLOW -> DEEP
+  * gtk/src/iconview.hg: get_selected_icons(): SHALLOW -> DEEP. Remove the
+  TreePathTraits struct in iconview.hg. Use the one in treepath.hg.
+  * gtk/src/recentmanager.hg: get_items(): SHALLOW -> DEEP
+
+2019-06-20  Daniel Boles  <dboles.src@gmail.com>
+
+  Window: Do not add 2nd ref to new Cairo::Surface
+
+  The C functions already return a newly allocated objected that the
+  caller owns, so if we pass `false` as Cairo's `has_reference`, then we
+  add another on the gtkmm side, so we will end up leaking that object.
+  
+  https://gitlab.gnome.org/GNOME/gtkmm/merge_requests/19#note_535429
+
+2019-06-20  Daniel Boles  <dboles.src@gmail.com>
+
+  Cursor: Fix meaning of comment about Cairo ref arg
+
+  Cairo::Object takes a has_reference parameter, not take_copy with
+  inverted meaning as in glibmm/gtkmm.
+  
+  Say "do not take ref" like e.g. window.hg already did, which is a bit
+  clearer than has_reference (when does it get that? before or after us?)
+  
+  https://gitlab.gnome.org/GNOME/gtkmm/merge_requests/19#note_535429
+  https://gitlab.gnome.org/GNOME/gtkmm/merge_requests/19#note_536603
+
+2019-03-20  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  3.24.1
+
+2019-03-20  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  configure.ac: Copy COPYING from the source directory
+
+2019-01-08  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Gtk::FileFilter: Don't use /* in a comment starting with /*
+
+  Compilation error: "/*" within comment [-Werror=comment]
+
+2019-01-07  Daniel Boles  <dboles.src@gmail.com>
+
+  FileFilter: Remove commented-out _WRAP_METHOD call
+
+  and remove the TODO: from the comment explaining it as it's already done
+  
+  https://gitlab.gnome.org/GNOME/gtkmm/merge_requests/12#note_396983
+
+2019-01-07  Daniel Boles  <dboles.src@gmail.com>
+
+  FileFilter: Don’t mention unwrapped func .filter()
+
+  We specifically ignore this, so we shouldn’t point to it from the intro…
+
+2019-01-07  Daniel Boles  <dboles.src@gmail.com>
+
+  FileFilter: Fix no documentation of custom rules
+
+  It is never very nice to see no documentation on our side and have to go
+  and read the GTK documentation and hope it relates well enough to gtkmm.
+
+2019-01-07  Daniel Boles  <dboles.src@gmail.com>
+
+  FileFilter: Format docs copied in from GTK better
+
+  Capitalise MIME, and put <tt> tags around the MIME types.
+
+2018-12-29  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  tools/gen_scripts: Update for non-source-dir builds
+
+  Most modules (e.g. gtk+) can be built in a directory separated from the
+  source directory. Update the scripts that generate .defs and docs.xml files
+  to handle that. See !11.
+  The environment variable JHBUILD_SOURCES is not used any more.
+  Instead the environment variables GMMPROC_GEN_SOURCE_DIR and
+  GMMPROC_GEN_BUILD_DIR are read. See comments in init_generate.sh.
+
+2018-12-18  Daniel Boles  <dboles@src.gnome.org>
+
+  Gdk::RGBA: Add fairly simple test of our additions
+
+  Test the fix for #42 and some other bits that we add. Most other tests
+  should be added to GTK itself, not gtkmm.
+  
+  https://gitlab.gnome.org/GNOME/gtkmm/merge_requests/8#note_389465
+
+2018-12-18  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  RGBA.set_hsv(): Properly interpret hue 360° as red
+
+  (bug found and commit message by Daniel Boles; patch proposed by Kjell)
+  
+  We document an inclusive range of 0..360 degrees, but we divide by 60
+  and switch over that, only handling 6 cases. So, hue 360° got treated as
+  300° i.e. magenta, when instead it should be equivalent to 0° i.e. red.
+  
+  The simplest fix is this proposed by Kjell: to treat case i == 6 (360° /
+  60°) the same as case i == 0, thereby making 360° red hue just like 0°.
+  
+  This exists only to achieve that; do not pass values outwith 0 <= h <=
+  360 and expect anything but UB, as we document/assume that range only.
+  
+  closes https://gitlab.gnome.org/GNOME/gtkmm/issues/42
+
+2018-12-17  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Gtk::LevelBar: Don't let the copyright text be a Doxygen comment
+
+  The copyright and license text started with "/**" which made Doxygen regard
+  it as a description of the Gtk namespace.
+
+2018-12-17  Daniel Boles  <dboles@src.gnome.org>
+
+  Builder: Use refBuilder-> not refXml-> in examples
+
+  It's much less clear what refXml is when we could just say refBuilder,
+  as we already do elsewhere.
+
+2018-12-16  Daniel Boles  <dboles@src.gnome.org>
+
+  Builder: Fix wrong use of @retval for output args:
+
+  @retval is for documenting the meanings of particular values of the
+  returned variable, not output reference/pointer arguments like this.
+
+2018-12-11  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Docs: Allow @newin with micro version, @newin{1,2,3}
+
+2018-11-08  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  3.24.0
+
+2018-11-08  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Gtk::FileChooserDialog: Allow constructing with use-header-bar
+
+  This is a construct-only property, so it must be specified in a constructor.
+  Bug #780004 (Daniel Boles)
+
+2018-11-07  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Add Gtk::NativeDialog and Gtk::FileChooserNative
+
+  Bug 783801
+
+2018-11-07  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Regenerate gtk_signals.defs
+
+  Bug 783801
+
+2018-11-07  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  generate_defs_gtk.cc: Add NativeDialog and FileChooserNative
+
+  Bug 783801
+
+2018-11-07  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  demos: Fix minor bug at a call to Gtk::make_managed()
+
+  The newly introduced calls to make_managed() contained a bug.
+
+2018-11-04  Murray Cumming  <murrayc@murrayc.com>
+
+  Gtk::AboutDialog: Add constructor with a use_header_bar parameter
+
+  Bug #780004 (Daniel Boles)
+
+2018-11-04  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Gdk::GLContext: Add unset_use_es()
+
+  Bug #787898
+
+2018-11-04  Daniel Boles  <dboles.src@gmail.com>
+
+  Gtk::Window: Wrap gtk_show_uri_on_window()
+
+  This is a very useful function that gtkmm did not wrap until now.
+  
+  https://bugzilla.gnome.org/show_bug.cgi?id=787242
+
+2018-10-26  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  configure.ac: Update bug report address
+
+2018-10-25  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  MSVC_NMake/config-msvc.mak: Use $(PDBVER) in DLL names
+
+  Since this is the C++-11 version of gtkmm which supports both Visual
+  Studio 2015 and 2017, we want to name the DLL and .lib to be like
+  <library>-vc140-3_0.[dll.lib] or <library>-vc140-d-3_0.[dll|lib] since
+  they both link to the v140 Windows C/C++ runtime DLLs, and thus these
+  DLLs and .lib's are advertised to be interoperable, as supported by
+  Microsoft.
+  
+  Note that the master branch, which requires C++-17, is not changed
+  as Visual Studio 2017 is really required to build things there.
+
+2018-10-23  Daniel Boles  <dboles.src@gmail.com>
+
+  MenuItem: Fix typo altough => although
+
+2018-10-20  Daniel Boles  <dboles.src@gmail.com>
+
+  Container: ForeachSlot takes Widget&, not Widget*
+
+  Fix the example, and while here, add an introductory line for the type,
+  and mirror master in putting a line <br>eak between the text and code.
+
+2018-10-07  Daniel Boles  <dboles.src@gmail.com>
+
+  object: Add Gtk::make_managed<T>(args...) helper
+
+  To avoid the discouraged pattern of manually writing `new` and get
+  tidier syntax, follow the example of std::make_(unique|shared)() by
+  adding a new helper function that both constructs and manages a widget
+  in one call. The user will not need to `new` and can user fewer parens.
+  
+    auto button = Gtk::manage(new Gtk::Button("_Hi", true));
+  
+  becomes
+  
+    auto button = Gtk::make_managed<Gtk::Button>("_Hi", true);
+  
+  Switch to make_managed() in tests and demo, albeit nowhere else (yet?).
+  
+  https://gitlab.gnome.org/GNOME/gtkmm/issues/33
+
+2018-10-07  Daniel Boles  <dboles.src@gmail.com>
+
+  gtk-demo/demowindow: Avoid compiler warning by g++
+
+  Flip the if/else case so that the /* Fall through */ comment comes
+  before the next case label, which suppresses a warning from
+  -Wimplicit-fallthrough and looks clearer anyway.
+
+2018-10-07  Daniel Boles  <dboles.src@gmail.com>
+
+  Image: Fix a typo
+
+2018-09-08  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Gtk: Add detail_name to some _WRAP_SIGNAL()s
+
+  * gtk/src/accelgroup.hg: Add detail_name to signal_accel_changed().
+  Deprecate signal_accel_activate(), which should never have been wrapped.
+  * gtk/src/appchooserbutton.hg: signal_custom_item_activated().
+  * gtk/src/levelbar.hg: signal_offset_changed().
+  * gtk/src/widget.hg: signal_child_notify().
+
+2018-09-08  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Gtk::Range, Settings: Update some deprecations
+
+  * gtk/src/range.hg: Deprecate property_[lower|upper]_stepper_sensitivity().
+  * gtk/src/settings.hg: Undeprecate property_gtk_cursor_blink(),
+  property_gtk_cursor_blink_time(),property_gtk_cursor_blink_timeout(),
+  property_gtk_entry_password_hint_timeout().
+
+2018-09-08  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Gdk, Gtk: Regenerate docs.xml and .defs files
+
+  and update gtk_signals.defs.patch.
+
+2018-09-08  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Add tools/gen_scripts/generate_docs_and_defs.sh
+
+2018-09-08  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Fix the generation of reference documentation
+
+  * docs/Makefile.am: Include the filelist.gmake.am files.
+  * gdk/gdkmm/filelist.gmake.am:
+  * gdk/src/filelist.gmake.am:
+  * gtk/gtkmm/filelist.gmake.am:
+  * gtk/src/filelist.gmake.am: The search path of the filelist.am files
+  start from $(top_srcdir) instead of $(srcdir). Necessary when the
+  filelist.gmake.am files are included in docs/Makefile.am.
+
+2018-09-07  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Update .gitignore
+
+2018-09-07  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  docs_override.xml files: Add substitute_[type|enumerator]_name elements
+
+  * gdk/src/gdk_docs_override.xml:
+  * gtk/src/gtk_docs_override.xml: Applicable substitute_type_name and
+  substitute_enumerator_name elements have been copied from the corresponding
+  files in the master branch (gtkmm-4). Fixes #19
+
+2018-09-07  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  configure.ac: Require giomm-2.4 >= 2.54.0
+
+  Glibmm 2.54.0 introduces useful features in gmmproc:
+  - Accept curly braces in default values in _WRAP macros.
+  - Add new element types for the docs_override.xml files:
+    substitute_type_name and substitute_enumerator_name.
+  And more.
+
+2018-09-07  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  build: Remove Visual Studio 2013 projects
+
+  Since the NMake Makefiles replaced the Visual Studio projects, this
+  commit drops them.
+
+2018-09-07  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  build: Add NMake Makefiles for Visual Studio builds
+
+  This adds NMake Makefiles for Visual Studio 2013 and later, which will
+  replace the Visual Studio projects.  The main motivation for this is to
+  ease maintenace on the Visual Studio build files, especially as sources
+  are often added or removed, making the project files out-of-date as they
+  are not generated during 'dist make'.  This will share the various
+  filelist.am's so that any additions or removal of sources can be
+  reflected upon the Visual Studio builds immediately.
+  
+  Note that as some code in the demos require compiler features that is
+  only available in Visual Studio 2015 or later, we only build the demos
+  if Visual Studio 2015 or later is used.
+
+2018-09-07  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  build: Remove GNU Makeisms from filelist.am's
+
+  This is so that they can be used by the NMake Makefiles as well.
+
+2018-09-07  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  gendef: Skip CRT symbols that are implemented inline
+
+  As a result to the move of UCRT for Visual Studio 2015 and later, some
+  of the CRT functions are no longer done in the CRT DLL, but are instead
+  implemented directly in the CRT headers.  We need to filter out these
+  symbols so that we can link the gtkmm DLL properly.
+  
+  Unfortunately we cannot just link to legacy_stdio_definitions.lib to
+  resolve this, so we just have to strip these symbols out from the
+  generated gtkmm.def.
+
+2018-09-07  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  build: Rename MSVC_Net2013 to MSVC_NMake
+
+  This prepares for the transition to NMake Makefiles for the Visual Studio
+  build system, which aims to reduce the likelihood of it becoming outdated
+  as it shares the filelist.am's with the autotools build system, instead
+  of being manually updated.
+
+2018-08-29  Luca Bacci  <luca.bacci982@gmail.com>
+
+  Document Gtk::CSsProviderError as @newin{3,16}
+
+2018-08-24  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Gtk::Widget: The show-all API is not deprecated in gtk+ any more
+
+  Remove the G_GNUC_[BEGIN,END]_IGNORE_DEPRECATIONS around the show_all
+  methods.
+  See https://gitlab.gnome.org/GNOME/gtk/commit/da8994f941460206106255112ebe7dcd36b83065
+  and https://gitlab.gnome.org/GNOME/gtk/issues/1282
+
+2018-08-24  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Gtk:MenuItem, Menus demo: Avoid the deprecated get_accel_group()
+
+  * demos/gtk-demo/example_menus.cc: Don't use Gtk::Window::get_accel_group().
+  * gtk/src/menuitem.ccg: accelerate(): Don't use get_accel_group(), if
+  gtkmm is built without deprecated API. See issue #18
+
+2018-08-24  Daniel Boles  <dboles@src.gnome.org>
+
+  Gtk::Window: Move to a proper get_accel_groups()
+
+  The existing get_accel_group() just creates a per-window AccelGroup on
+  demand and returns it. That’s no use if you need groups that were added
+  by other sources, e.g. by Gtk::Builder, Glade, etc.
+  
+  Deprecate that, in favour of a new get_accel_groups(), which wraps
+  gtk_accel_groups_from_object() to return the actual set of AccelGroups.
+  
+  Note that gtk_accel_groups_from_object() takes a GObject, which it says
+  is usually a GtkWindow. I therefore assume users will only want to get
+  groups from a Window.
+  
+  While here:
+   - Add a . to the Doxygen comment to tell it the 1st line is a summary
+   - Don’t say the default group can’t be removed; I see no reason why not
+   - Remove speculative comments on the old code, now explained elsewhere.
+  
+  Fixes #18
+
+2018-08-23  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Gtk::Image: Add more constructors
+
+  Add 3 constructors, taking an icon name, a Gio::Icon and a Cairo::Surface,
+  respectively.
+  
+  Fixes issue #35
+
+2018-08-22  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Pixbufs demo: Use Gdk::FrameClock
+
+  The corresponding demo in gtk+ uses GdkFrameClock.
+  
+  Also, make the pixbufs demo in gtkmm more C++'ish by minimizing the use
+  of #define and using math functions from <cmath> instead of <math.h>.
+
+2018-08-22  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Gdk::Window, Gtk::StyleContext, Widget: Add FrameClock API
+
+  * gdk/src/window.[ccg|hg]: Add get_frame_clock().
+  * gtk/src/stylecontext.[ccg|hg]: Add set/get_frame_clock() and
+  property_paint_clock().
+  * gtk/src/widget.[ccg|hg]: Add get_frame_clock(), add_tick_callback() and
+  remove_tick_callback().
+
+2018-08-22  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Add Gdk::FrameClock and Gdk::FrameTimings
+
+  * gdk/src/frameclock.[ccg|hg]:
+  * gdk/src/frametimings.[ccg|hg]: New files.
+  * .gitignore:
+  * gdk/gdkmm.h:
+  * gdk/src/filelist.am: Add new filenames.
+  * gdk/src/gdk_extra_objects.defs: Add new objects.
+  * gdk/src/gdk_signals.defs: Add GdkFrameClock's signals.
+  * tools/extra_defs_gen/generate_defs_gdk.cc: Add GDK_TYPE_FRAME_CLOCK.
+  * tools/m4/convert_gdk.m: Add conversions for GdkFrameClock and
+  GdkFrameTimings.
+  
+  Fixes #23
+
+2018-08-21  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Add Gdk::Cairo::create_surface_from_pixbuf()
+
+  and Gdk::Cairo::get_clip_rectangle(), create_region_from_surface(),
+  draw_from_gl(). Fixes #25
+
+2018-08-20  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Gtk::Grid: Add default values in attach()
+
+  Add default value = 1 for the width and height parameters in attach() and
+  attach_next_to(). Fixes #20
+
+2018-08-19  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Gtk::Container: Deprecate focus chains
+
+  gtk_container_[set,unset,get]_focus_chain() have been deprecated
+  in branch gtk-3-24.
+
+2018-08-19  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Gtk::Widget: Don't deprecate the show-all API
+
+  The show-all API has been deprecated in gtk+ 3.24, but that may have been
+  a premature action. It's still used in many gtk+ demo programs.
+  Add G_GNUC_[BEGIN,END]_IGNORE_DEPRECATIONS to be able to use the deprecated
+  gtk+ functions in non-deprecated gtkmm methods.
+
+2018-08-19  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Gtk::StyleContext: Deprecate render_frame_gap()
+
+  gtk_render_frame_gap() has been deprecated in branch gtk-3-24.
+
+2018-08-19  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Gtk::CssProvider: Deprecate get_default()
+
+  gtk_css_provider_get_default() has been deprecated in branch gtk-3-24.
+
+2018-04-04  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Update the Menus demo
+
+  Don't mention the deprecated ImageMenuItem in the description.
+  Show the menu with accelerator keys.
+
+2018-02-11  Christian Schoenebeck  <schoenebeck@linuxsampler.org>
+
+  Gtk::MenuItem: Fix add_accel_label()
+
+  Make sure accelator keys are shown, by calling gtk_menu_item_set_label().
+  
+  https://mail.gnome.org/archives/gtkmm-list/2018-February/msg00006.html
+
+2018-01-24  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Fix the Change Display demo
+
+  Make the demo more like the corresponding demo in gtk+, e.g. by using
+  Gdk::Seat::grab() and Gdk::Device::get_window_at_position().
+
+2017-12-28  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Gdk: Deprecate flush(), screen_width(), etc.
+
+  * gdk/gdkmm/general.[cc|h]: Decrecate Gdk::screen_width(), screen_height(),
+  screen_width_mm(), screen_height_mm(), flush(). They have been deprecated
+  in gtk+ 3.22.
+  * gtk/src/fontbutton.hg: Disable deprecation warnings when fontbutton.cc
+  is compiled. gtk_font_button_set/get_font_name() and property font-name
+  are deprecated in gtk+ 3.22 in favor of gtk_font_chooser_set/get_font() and
+  GtkFontChooser:font. They can't be deprecated in gtkmm 3.22 because
+  FontChooser is not a base class of FontButton.
+  * demos/gtk-demo/example_change_display.cc: Don't use the deprecated
+  Gdk::flush().
+
+2017-10-27  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Gtk::AboutDialog::get_logo(): Add refreturn
+
+2017-10-13  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Add a specialization for Glib::Value<Cairo::RefPtr<Cairo::Surface>>
+
+  * gtk/src/cellrendererpixbuf.hg: Add a specialization for
+  Glib::Value<Cairo::RefPtr<Cairo::Surface>>. A specialization for
+  Glib::Value<Cairo::RefPtr<T>> can't be put in glibmm, because glibmm does
+  not depend on cairomm. It can't be put in cairomm, because cairomm does
+  not depend on glibmm. It's needed for property_surface(). Bug 788513
+
+2017-10-09  Daniel Boles  <dboles.src@gmail.com>
+
+  class_gtkobject.m4|object.h: Fix GtkObject→GObject
+
+  GtkObject was moved down to the GLib level, as GObject, 2 versions ago.
+  
+  https://bugzilla.gnome.org/show_bug.cgi?id=788587
+
+2017-09-13  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Update build/.gitignore
+
+2017-09-13  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  tools/gen_scripts/: Update for gdk-pixbuf built with meson, and for gtk+-3
+
+  When gdk-pixbuf is built with meson instead of autotools, generated .h
+  and .c files are stored in gdk-pixbuf/build/gdk-pixbuf. Files in that
+  directory shall be read when the docs.xml and the .defs files are generated.
+  
+  Read .h and .c files from the gtk+-3 directory.
+
+2017-09-13  Murray Cumming  <murrayc@murrayc.com>
+
+  3.22.2
+
+2017-07-11  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Gtk::PrintJob: Fix a call to Glib::throw_exception()
+
+  Glib::throw_exception(GError*) takes ownership of the GError.
+  SignalProxy_Custom_gtk_callback() must give a copy to throw_exception().
+
+2017-07-06  Daniel Boles  <dboles@src.gnome.org>
+
+  Gdk::RGBA: Update ctor(ustring) docs from GTK+
+
+  https://bugzilla.gnome.org/show_bug.cgi?id=784483
+
+2017-06-27  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Gtk::Editable, RecentChooser, Scale: Fix memory leaks
+
+  Editable::get_chars_vfunc(), RecentChooser::get_current_uri_vfunc() and
+  Scale::signal_format_value() shall delete the returned character array
+  after it has been copied to a Glib::ustring. Bug 783360
+
+2017-06-23  Murray Cumming  <murrayc@murrayc.com>
+
+  3.22.1
+
+2017-06-03  Daniel Boles  <dboles@src.gnome.org>
+
+  convert_gtk.m4: Remove redundant conversions
+
+  These are already defined in convert_glib.m4, which is included as-is.
+  
+  https://bugzilla.gnome.org/show_bug.cgi?id=783136
+
+2017-06-03  Daniel Boles  <dboles.src@gmail.com>
+
+  gtk-demo/demowindow: Remove unnecessary null check
+
+  There is no way that the pointer d can become null here.
+
+2017-05-26  Daniel Boles  <dboles.src@gmail.com>
+
+  gtk-demo: Use #include <blah> for system headers
+
+  including our own and those from the stdlibs. This is more idiomatic, so
+  it makes for better example code to show users.
+
+2017-05-26  Daniel Boles  <dboles.src@gmail.com>
+
+  gtk-demo/example_headerbar: Remove an old comment
+
+  Nearly 3 years later, I think we can safely assume these icons are
+  available on the end-user’s system.
+
+2017-05-26  Daniel Boles  <dboles@src.gnome.org>
+
+  gtk-demo/demowindow: Order #includes correctly
+
+  in the spirit of
+  https://git.gnome.org/browse/gtk+/tree/docs/CODING-STYLE#n458
+  
+  “Every file must include config.h first, then its own header, then other
+  GTK+ headers that it needs, then system and third-party headers that it
+  needs.”
+  
+  For the “other GTK+ headers” part, I took the liberty of using the order
+  I normally follow, which is GLib headers followed by GIO ones followed
+  by GTK+ ones. I use this as it follows their order in the software stack
+
+2017-05-26  Daniel Boles  <dboles.src@gmail.com>
+
+  gtk-demo/demowindow: Use size_t to index in arrays
+
+  int or unsigned int are not guaranteed to be wide enough. Of course,
+  that will not matter in many practical cases, but it is better style to
+  always use std::size_t when the purpose is to index into an array.
+
+2017-05-26  Daniel Boles  <dboles@src.gnome.org>
+
+  gtk-demo/demowindow: Use auto
+
+2017-05-26  Daniel Boles  <dboles@src.gnome.org>
+
+  gtk-demo: Don’t remove_page() with invalid index
+
+  The decrement was in the iteration expression, so it happened after the
+  loop body. So on the first iteration, this would call remove_page() with
+  i == get_n_pages(), which is of course 1 past the maximal allowed index.
+
+2017-05-10  Daniel Boles  <dboles.src@gmail.com>
+
+  TreeView: Remove an obsolete comment
+
+  Commit 4504487c7 replaced the old C syntax (void*)0 with nullptr but did
+  not remove this comment, which referred to the original cast expression.
+
+2017-05-10  Daniel Boles  <dboles@src.gnome.org>
+
+  Box: Fix comments on constructor
+
+  • typo in internal comment
+  • wrong claim that it always creates a horizontal Box in documentation
+    comment – looks like a copy-and-paste error from the HBox/VBox days.
+
+2017-05-10  Daniel Boles  <dboles.src@gmail.com>
+
+  CellLayout: Improve docs of get_first_cell() funcs
+
+  They included the line “This assumes that the CellLayout contains only
+  one CellRenderer.” But that doesn’t matter: these methods always return
+  the first cell, without caring whether there are any others, and thus
+  users can call them without caring too. So, that comment had no purpose.
+  
+  Also, these are ‘safe’ to call for Layouts containing no cells, in the
+  sense that they will return nullptr, so we might as well clarify that.
+
+2017-05-10  Daniel Boles  <dboles.src@gmail.com>
+
+  TreeModel: Improve docs of foreach*() functions
+
+  • Fix example slots to have the correct bool return type; they were void
+  • Don’t use example as 1st paragraph as it ends with ;. which looks odd
+  • Open by explaining what the typedef is for, with link to its foreach()
+  • For each foreach*(), name and link to its type of slot in the comment
+  • Use the actual function name in each case, instead of always foreach()
+
+2017-03-27  Daniel Boles  <dboles@src.gnome.org>
+
+  FileChooserDialog: Use static_cast, not C cast
+
+  static_cast is better C++ style and safer due to compile-time checking.
+  
+  https://bugzilla.gnome.org/show_bug.cgi?id=780004
+
+2017-03-27  Daniel Boles  <dboles@src.gnome.org>
+
+  FileChooserDialog: Drop unneeded explicit on ctor
+
+  This is only useful to us if the constructor can be invoked with one
+  argument (i.e. it only has 1, or the subsequent have default values).
+  That is not true here, so the explicit keyword is a semantic mistake.
+  
+  https://bugzilla.gnome.org/show_bug.cgi?id=780004
+
+2017-03-27  Kjell Ahlstedt  <kjell.ahlstedt@bredband.net>
+
+  Gtk::FileChooserDialog: Deprecate ctors with backend parameter
+
+  gtk_file_chooser_dialog_new_with_backend() was deprecated in gtk+ 2.14
+  and removed in gtk+-3. The corresponding ctors in FileChooserDialog should
+  have been removed in gtkmm-3.
+
+2017-02-02  Kjell Ahlstedt  <kjell.ahlstedt@bredband.net>
+
+  Gdk::Window: Deprecate process[_all]_updates()
+
+  gdk_window_process_all_updates() and gdk_window_process_updates()
+  have been deprecated in gtk+-3.
+
+2017-01-04  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  Visual Studio builds: Fix projects
+
+  Add the missed source files and headers for the projects and
+  "installation".
+
+2016-12-31  Daniel Boles  <dboles@src.gnome.org>
+
+  label.ccg: update align args to match doc fix @ hg
+
+  https://bugzilla.gnome.org/show_bug.cgi?id=774652
+
+2016-11-21  Kjell Ahlstedt  <kjell.ahlstedt@bredband.net>
+
+  Gtk::Frame: Fix the documentation of set_label_align()
+
+  Bug 774249
+
+2016-11-19  djb  <db0451@gmail.com>
+
+  Label: improve h/valign constructor doc comment
+
+  https://bugzilla.gnome.org/show_bug.cgi?id=774652
+
+2016-11-19  djb  <db0451@gmail.com>
+
+  Label(): don't use misleading align argument names
+
+  These arguments are forwarded to set_halign() and set_valign(), yet they
+  were named xalign and yalign, which is especially confusing because
+  Label already has completely separate xalign and yalign properties.
+  This could lead to users getting confused when they think they're
+  setting one of these pairs of properties but actually setting the other.
+  
+  https://bugzilla.gnome.org/show_bug.cgi?id=774652
+
+2016-11-05  Kjell Ahlstedt  <kjell.ahlstedt@bredband.net>
+
+  Gtk::Widget: Deprecate is_composited() and signal_composited_changed()
+
+  because they are deprecated in gtk+-3. Bug #773642.
+
+2016-10-31  Kjell Ahlstedt  <kjell.ahlstedt@bredband.net>
+
+  Deprecate API which is deprecated in gtk+-3
+
+  * gdk/src/screen.[ccg|hg]:
+  * gdk/src/visual.hg:
+  * gdk/src/window.hg:
+  * gtk/src/menu.[ccg|hg]:
+  * gtk/src/widget.hg:
+  * gtk/src/window.hg: Deprecate many methods.
+  * gtk/src/container.hg: Deprecate property_child(). Bug #773642.
+

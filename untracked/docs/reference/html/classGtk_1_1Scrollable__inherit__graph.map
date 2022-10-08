@@ -1,0 +1,12 @@
+<map id="Gtk::Scrollable" name="Gtk::Scrollable">
+<area shape="rect" id="node5" href="$classGtk_1_1IconView.html" title="The IconView provides an alternative view of a list model. " alt="" coords="5,304,117,331"/>
+<area shape="rect" id="node6" href="$classGtk_1_1Layout.html" title="Infinite scrollable area containing child widgets and/or custom drawing. " alt="" coords="142,304,239,331"/>
+<area shape="rect" id="node7" href="$classGtk_1_1TextView.html" title="Multi&#45;line text editing widget. " alt="" coords="264,304,376,331"/>
+<area shape="rect" id="node8" href="$classGtk_1_1ToolPalette.html" title="A ToolPalette allows you to add ToolItems to a palette&#45;like container with various categories and dra..." alt="" coords="399,304,523,331"/>
+<area shape="rect" id="node9" href="$classGtk_1_1TreeView.html" title="The TreeView widget displays the model (Gtk::TreeModel) data and allows the user to interact with it..." alt="" coords="548,304,660,331"/>
+<area shape="rect" id="node11" href="$classGtk_1_1Viewport.html" title="An adapter which makes widgets scrollable. " alt="" coords="685,304,795,331"/>
+<area shape="rect" id="node2" href="/opt/gnome/share/doc/glibmm-2.4/reference/glibmm-2.4.tag$classGlib_1_1Interface.html" title="Glib::Interface" alt="" coords="333,155,448,181"/>
+<area shape="rect" id="node3" href="/opt/gnome/share/doc/glibmm-2.4/reference/glibmm-2.4.tag$classGlib_1_1ObjectBase.html" title="Glib::ObjectBase" alt="" coords="325,80,456,107"/>
+<area shape="rect" id="node4" href="/opt/gnome/share/doc/libsigc++-2.0/reference/libsigc++-2.0.tag$structsigc_1_1trackable.html" title="sigc::trackable" alt="" coords="333,5,449,32"/>
+<area shape="rect" id="node10" href="$classGtk_1_1ListViewText.html" title="A simple listbox which presents some lines of information in columns and lets the user select some of..." alt="" coords="537,379,671,405"/>
+</map>

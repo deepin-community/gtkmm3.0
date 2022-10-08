@@ -1,0 +1,7 @@
+<map id="Gtk::TreeDragDest" name="Gtk::TreeDragDest">
+<area shape="rect" id="node5" href="$classGtk_1_1ListStore.html" title="Thist is a list model for use with a Gtk::TreeView widget. " alt="" coords="5,304,116,331"/>
+<area shape="rect" id="node6" href="$classGtk_1_1TreeStore.html" title="Gtk::TreeStore" alt="" coords="141,304,255,331"/>
+<area shape="rect" id="node2" href="/opt/gnome/share/doc/glibmm-2.4/reference/glibmm-2.4.tag$classGlib_1_1Interface.html" title="Glib::Interface" alt="" coords="71,155,186,181"/>
+<area shape="rect" id="node3" href="/opt/gnome/share/doc/glibmm-2.4/reference/glibmm-2.4.tag$classGlib_1_1ObjectBase.html" title="Glib::ObjectBase" alt="" coords="63,80,194,107"/>
+<area shape="rect" id="node4" href="/opt/gnome/share/doc/libsigc++-2.0/reference/libsigc++-2.0.tag$structsigc_1_1trackable.html" title="sigc::trackable" alt="" coords="71,5,187,32"/>
+</map>
