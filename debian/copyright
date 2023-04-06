@@ -5,6 +5,8 @@ Upstream-Contact: Murray Cumming <murrayc@murrayc.com>
 Source: https://download.gnome.org/sources/gtkmm/
 X-Debianized-By: Bradley Bell <btb@debian.org>
 X-Debianized-Date: Tue, 14 Oct 2003 16:49:47 -0700
+Files-Excluded: untracked
+Comment: Let's build the html help from source
 
 Files: *
 Copyright: 1998-2012, The gtkmm Development Team

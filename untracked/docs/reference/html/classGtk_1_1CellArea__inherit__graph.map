@@ -1,9 +1,0 @@
-<map id="Gtk::CellArea" name="Gtk::CellArea">
-<area shape="rect" id="node8" href="$classGtk_1_1CellAreaBox.html" title="A cell area that renders CellRenderers into a row or a colum, depending on its orientation. " alt="" coords="83,379,216,405"/>
-<area shape="rect" id="node2" href="/opt/gnome/share/doc/glibmm-2.4/reference/glibmm-2.4.tag$classGlib_1_1Object.html" title="Glib::Object" alt="" coords="5,155,104,181"/>
-<area shape="rect" id="node3" href="/opt/gnome/share/doc/glibmm-2.4/reference/glibmm-2.4.tag$classGlib_1_1ObjectBase.html" title="Glib::ObjectBase" alt="" coords="55,80,185,107"/>
-<area shape="rect" id="node6" href="/opt/gnome/share/doc/glibmm-2.4/reference/glibmm-2.4.tag$classGlib_1_1Interface.html" title="Glib::Interface" alt="" coords="128,155,243,181"/>
-<area shape="rect" id="node4" href="/opt/gnome/share/doc/libsigc++-2.0/reference/libsigc++-2.0.tag$structsigc_1_1trackable.html" title="sigc::trackable" alt="" coords="62,5,178,32"/>
-<area shape="rect" id="node5" href="$classGtk_1_1Buildable.html" title="A base class for objects that can be built by Gtk::Builder. " alt="" coords="92,229,207,256"/>
-<area shape="rect" id="node7" href="$classGtk_1_1CellLayout.html" title="An interface for packing cells. " alt="" coords="231,229,353,256"/>
-</map>

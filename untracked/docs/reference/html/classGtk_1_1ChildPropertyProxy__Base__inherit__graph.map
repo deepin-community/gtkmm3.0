@@ -1,5 +1,0 @@
-<map id="Gtk::ChildPropertyProxy_Base" name="Gtk::ChildPropertyProxy_Base">
-<area shape="rect" id="node2" href="$classGtk_1_1ChildPropertyProxy.html" title="A ChildPropertyProxy can be used to get and set the value of a GtkContainer&#39;s child property..." alt="" coords="271,5,487,32"/>
-<area shape="rect" id="node3" href="$classGtk_1_1ChildPropertyProxy__ReadOnly.html" title="See ChildPropertyProxy(). " alt="" coords="289,57,468,98"/>
-<area shape="rect" id="node4" href="$classGtk_1_1ChildPropertyProxy__WriteOnly.html" title="See ChildPropertyProxy(). " alt="" coords="289,122,468,163"/>
-</map>
