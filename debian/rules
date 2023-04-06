@@ -10,6 +10,7 @@ export DEB_LDFLAGS_MAINT_APPEND = -Wl,-O1 -Wl,-z,defs
 override_dh_auto_configure:
 	dh_auto_configure -- \
 		-Dbuild-documentation=true \
+		-Dmaintainer-mode=true \
 		-Dwarnings=max
 
 # Don't compress doxygen tag files

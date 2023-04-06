@@ -1,5 +1,0 @@
-<map id="Gtk::TreeModelColumnBase" name="Gtk::TreeModelColumnBase">
-<area shape="rect" id="node2" href="$classGtk_1_1TreeModelColumn.html" title="A Gtk::TreeModelColumn describes the C++ type of the data in a model column, and identifies that colu..." alt="" coords="256,5,464,32"/>
-<area shape="rect" id="node3" href="$classGtk_1_1TreeModelColumn.html" title="Gtk::TreeModelColumn\l\&lt; ColumnType \&gt;" alt="" coords="275,57,445,98"/>
-<area shape="rect" id="node4" href="$classGtk_1_1TreeModelColumn.html" title="Gtk::TreeModelColumn\l\&lt; Glib::ustring \&gt;" alt="" coords="275,122,445,163"/>
-</map>

@@ -1,3 +1,149 @@
+2022-09-12  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  3.24.7
+
+2022-09-12  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Gtk::TextView::get_tabs(): Plug a memory leak
+
+  gtk_text_view_get_tabs() returns a copy (transfer full).
+
+2022-08-22  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Dialog demo: Add a non-modal dialog
+
+  Fixes #123
+
+2022-08-16  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Gtk::Menu: Fix build with -Dbuild-deprecated-api=false
+
+  Fixes #126
+
+2022-07-18  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Doxyfile.in: Allow more graph nodes
+
+  Required for Gtk::Widget's inheritance diagram.
+
+2022-06-29  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Gtk::Widget: Improve the class documentation
+
+2022-06-09  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Gtk::FileChooserNative: Don't derive a gtkmm__GtkFileChooserNative
+
+  GtkFileChooserNative is declared G_DECLARE_FINAL_TYPE.
+
+2022-06-09  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  gmmproc: Improved handling of final types
+
+  * tools/m4/class_shared.m4: New file. It's a copy of the corresponding
+  file in glibmm. The copy in gtkmm makes it possible to
+  use _DO_NOT_DERIVE_GTYPE and _ABI_AS_WITH_DERIVED_GTYPE even if you build
+  against a version of glibmm where class_shared.m4 has not been updated.
+  * tools/extra_defs_gen/meson.build:
+  * tools/m4/filelist.am: Add class_shared.m4.
+
+2022-05-24  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  Meson: Simplify compiler flag checking
+
+  As Kjell suggested, don't use a for loop as get_supported_arguments() works on
+  a list and returns a list.
+
+2022-05-23  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  meson/MSVC: Apply /wd4828 when building gendef.exe only
+
+  This warning only applies when compiling gendef.cc, when '/utf-8' is also being
+  used, so only apply that compiler flag there.  Move the '/utf-8' to be with the
+  other warning-related compiler flags for consistency's sake.
+  
+  Also, only build gendef.exe if it is really needed, i.e., glibmm's gmmproc is
+  not able to produce headers that can export gtkmm's symbols via compiler
+  directives.
+
+2022-05-23  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  meson.build/MSVC: Disable more warnings
+
+  These warnings are not ones that we do need to be worried about when building
+  gtkmm, and we should extend applying them for the (generated) C sources as well
+
+2022-05-23  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  meson.build/MSVC: Re-order warnings-related c[xx]flags a bit
+
+  Don't (needlessly) repeat checking for the '/utf-8' compiler flag, and
+  use the `/wd4267` compiler flag only when building a 64-bit build, since
+  warning C4267 only applies for 64-bit builds.
+  
+  Also, add a short description for the warning-related compiler flags for
+  Visual Studio.
+
+2022-05-21  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  meson.build: Avoid configuration warnings
+
+2022-05-02  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  3.24.6
+
+2022-04-14  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Gtk::Object::_release_c_instance(): Unref orphan managed widgets
+
+  g_object_run_dispose() unrefs a widget only if it has a parent.
+  Use g_object_unref() on all widgets without a parent.
+  Fixes #115
+
+2022-02-27  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  meson.build: Check if Perl is required for building documentation
+
+  New versions of mm-common use the Python scripts doc_postprocess.py
+  and doc_install.py instead of the Perl scripts doc-postprocess.pl and
+  doc-install.pl when documentation is built.
+
+2022-02-18  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  meson.build: Specify 'check' option in run_command()
+
+  The default value will be changed in future Meson releases.
+  
+  Don't use deprecated python3.path() and execute(..., gui_app: ...).
+  Let import('python').find_installation() always find the python
+  installation used to run Meson.
+  Fixes #111
+
+2022-02-15  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  treeiter.hg: Declare TreeValueProxy copy constructor =default
+
+  Avoid warnings from the clang++ compiler.
+  
+  It's deprecated to implicitly declare a copy constructor, if there
+  is a user-deleted (=delete) copy assignment operator.
+
+2021-11-10  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  build: Support Visual Studio 2022
+
+  Make these builds distinct frmo the Visual Studio 2019 builds.
+
+2021-09-08  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  docs/reference/Doxyfile.in: Remove obsolete entry
+
+2021-06-27  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  SizeGroup demo: Derive from Gtk::Window instead of Dialog
+
+  and set active items in the combo boxes, so something is shown.
+
 2021-05-21  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
 
   3.24.5
@@ -1491,178 +1637,4 @@
   gtk-demo/demowindow: Remove unnecessary null check
 
   There is no way that the pointer d can become null here.
-
-2017-05-26  Daniel Boles  <dboles.src@gmail.com>
-
-  gtk-demo: Use #include <blah> for system headers
-
-  including our own and those from the stdlibs. This is more idiomatic, so
-  it makes for better example code to show users.
-
-2017-05-26  Daniel Boles  <dboles.src@gmail.com>
-
-  gtk-demo/example_headerbar: Remove an old comment
-
-  Nearly 3 years later, I think we can safely assume these icons are
-  available on the end-user’s system.
-
-2017-05-26  Daniel Boles  <dboles@src.gnome.org>
-
-  gtk-demo/demowindow: Order #includes correctly
-
-  in the spirit of
-  https://git.gnome.org/browse/gtk+/tree/docs/CODING-STYLE#n458
-  
-  “Every file must include config.h first, then its own header, then other
-  GTK+ headers that it needs, then system and third-party headers that it
-  needs.”
-  
-  For the “other GTK+ headers” part, I took the liberty of using the order
-  I normally follow, which is GLib headers followed by GIO ones followed
-  by GTK+ ones. I use this as it follows their order in the software stack
-
-2017-05-26  Daniel Boles  <dboles.src@gmail.com>
-
-  gtk-demo/demowindow: Use size_t to index in arrays
-
-  int or unsigned int are not guaranteed to be wide enough. Of course,
-  that will not matter in many practical cases, but it is better style to
-  always use std::size_t when the purpose is to index into an array.
-
-2017-05-26  Daniel Boles  <dboles@src.gnome.org>
-
-  gtk-demo/demowindow: Use auto
-
-2017-05-26  Daniel Boles  <dboles@src.gnome.org>
-
-  gtk-demo: Don’t remove_page() with invalid index
-
-  The decrement was in the iteration expression, so it happened after the
-  loop body. So on the first iteration, this would call remove_page() with
-  i == get_n_pages(), which is of course 1 past the maximal allowed index.
-
-2017-05-10  Daniel Boles  <dboles.src@gmail.com>
-
-  TreeView: Remove an obsolete comment
-
-  Commit 4504487c7 replaced the old C syntax (void*)0 with nullptr but did
-  not remove this comment, which referred to the original cast expression.
-
-2017-05-10  Daniel Boles  <dboles@src.gnome.org>
-
-  Box: Fix comments on constructor
-
-  • typo in internal comment
-  • wrong claim that it always creates a horizontal Box in documentation
-    comment – looks like a copy-and-paste error from the HBox/VBox days.
-
-2017-05-10  Daniel Boles  <dboles.src@gmail.com>
-
-  CellLayout: Improve docs of get_first_cell() funcs
-
-  They included the line “This assumes that the CellLayout contains only
-  one CellRenderer.” But that doesn’t matter: these methods always return
-  the first cell, without caring whether there are any others, and thus
-  users can call them without caring too. So, that comment had no purpose.
-  
-  Also, these are ‘safe’ to call for Layouts containing no cells, in the
-  sense that they will return nullptr, so we might as well clarify that.
-
-2017-05-10  Daniel Boles  <dboles.src@gmail.com>
-
-  TreeModel: Improve docs of foreach*() functions
-
-  • Fix example slots to have the correct bool return type; they were void
-  • Don’t use example as 1st paragraph as it ends with ;. which looks odd
-  • Open by explaining what the typedef is for, with link to its foreach()
-  • For each foreach*(), name and link to its type of slot in the comment
-  • Use the actual function name in each case, instead of always foreach()
-
-2017-03-27  Daniel Boles  <dboles@src.gnome.org>
-
-  FileChooserDialog: Use static_cast, not C cast
-
-  static_cast is better C++ style and safer due to compile-time checking.
-  
-  https://bugzilla.gnome.org/show_bug.cgi?id=780004
-
-2017-03-27  Daniel Boles  <dboles@src.gnome.org>
-
-  FileChooserDialog: Drop unneeded explicit on ctor
-
-  This is only useful to us if the constructor can be invoked with one
-  argument (i.e. it only has 1, or the subsequent have default values).
-  That is not true here, so the explicit keyword is a semantic mistake.
-  
-  https://bugzilla.gnome.org/show_bug.cgi?id=780004
-
-2017-03-27  Kjell Ahlstedt  <kjell.ahlstedt@bredband.net>
-
-  Gtk::FileChooserDialog: Deprecate ctors with backend parameter
-
-  gtk_file_chooser_dialog_new_with_backend() was deprecated in gtk+ 2.14
-  and removed in gtk+-3. The corresponding ctors in FileChooserDialog should
-  have been removed in gtkmm-3.
-
-2017-02-02  Kjell Ahlstedt  <kjell.ahlstedt@bredband.net>
-
-  Gdk::Window: Deprecate process[_all]_updates()
-
-  gdk_window_process_all_updates() and gdk_window_process_updates()
-  have been deprecated in gtk+-3.
-
-2017-01-04  Chun-wei Fan  <fanchunwei@src.gnome.org>
-
-  Visual Studio builds: Fix projects
-
-  Add the missed source files and headers for the projects and
-  "installation".
-
-2016-12-31  Daniel Boles  <dboles@src.gnome.org>
-
-  label.ccg: update align args to match doc fix @ hg
-
-  https://bugzilla.gnome.org/show_bug.cgi?id=774652
-
-2016-11-21  Kjell Ahlstedt  <kjell.ahlstedt@bredband.net>
-
-  Gtk::Frame: Fix the documentation of set_label_align()
-
-  Bug 774249
-
-2016-11-19  djb  <db0451@gmail.com>
-
-  Label: improve h/valign constructor doc comment
-
-  https://bugzilla.gnome.org/show_bug.cgi?id=774652
-
-2016-11-19  djb  <db0451@gmail.com>
-
-  Label(): don't use misleading align argument names
-
-  These arguments are forwarded to set_halign() and set_valign(), yet they
-  were named xalign and yalign, which is especially confusing because
-  Label already has completely separate xalign and yalign properties.
-  This could lead to users getting confused when they think they're
-  setting one of these pairs of properties but actually setting the other.
-  
-  https://bugzilla.gnome.org/show_bug.cgi?id=774652
-
-2016-11-05  Kjell Ahlstedt  <kjell.ahlstedt@bredband.net>
-
-  Gtk::Widget: Deprecate is_composited() and signal_composited_changed()
-
-  because they are deprecated in gtk+-3. Bug #773642.
-
-2016-10-31  Kjell Ahlstedt  <kjell.ahlstedt@bredband.net>
-
-  Deprecate API which is deprecated in gtk+-3
-
-  * gdk/src/screen.[ccg|hg]:
-  * gdk/src/visual.hg:
-  * gdk/src/window.hg:
-  * gtk/src/menu.[ccg|hg]:
-  * gtk/src/widget.hg:
-  * gtk/src/window.hg: Deprecate many methods.
-  * gtk/src/container.hg: Deprecate property_child(). Bug #773642.
 

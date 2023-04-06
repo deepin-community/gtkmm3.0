@@ -1,6 +1,0 @@
-<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classGtk_1_1TreeIterBase.html" title="Gtk::TreeIterBase" alt="" coords="5,31,140,57"/>
-<area shape="rect" id="node2" href="$classGtk_1_1TreeIter.html" title="A Gtk::TreeModel::iterator is a reference to a specific node on a specific model. ..." alt="" coords="188,31,291,57"/>
-<area shape="rect" id="node3" href="$classGtk_1_1TreeNodeChildren.html" title="typedefed as TreeModel::Children. " alt="" coords="339,5,507,32"/>
-<area shape="rect" id="node4" href="$classGtk_1_1TreeRow.html" title="Typedefed as TreeModel::Row. " alt="" coords="369,56,477,83"/>
-</map>

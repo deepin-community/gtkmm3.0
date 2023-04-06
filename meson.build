@@ -2,13 +2,13 @@
 
 # The resource compiler, used in demos/gtk-demo, requires a C compiler.
 project('gtkmm', 'c', 'cpp',
-  version: '3.24.5',
+  version: '3.24.7',
   license: 'LGPLv2.1+',
   default_options: [
-    'cpp_std=c++11'
+    'cpp_std=c++11',
+    'warning_level=1',
   ],
-  meson_version: '>= 0.54.0', # required for meson.override_dependency()
-                              # and dep.get_variable(internal:)
+  meson_version: '>= 0.56.0', # required for executable(win_subsystem:)
 )
 
 gtkmm_api_version = '3.0'
@@ -44,10 +44,11 @@ macos_darwin_versions = [
 project_source_root = meson.current_source_dir()
 project_build_root = meson.current_build_dir()
 
+c_compiler = meson.get_compiler('c')
 cpp_compiler = meson.get_compiler('cpp')
 is_msvc = cpp_compiler.get_id() == 'msvc'
 is_host_windows = host_machine.system() == 'windows'
-python3 = import('python').find_installation('python3')
+python3 = import('python').find_installation()
 
 python_version = python3.language_version()
 python_version_req = '>= 3.5'
@@ -62,7 +63,7 @@ import os
 import sys
 sys.exit(os.path.isdir("@0@") or os.path.isfile("@0@"))
 '''.format(project_source_root / '.git')
-is_git_build = run_command(python3, '-c', cmd_py).returncode() != 0
+is_git_build = run_command(python3, '-c', cmd_py, check: false).returncode() != 0
 
 # Are we testing a dist tarball while it's being built?
 # There ought to be a better way. https://github.com/mesonbuild/meson/issues/6866
@@ -76,10 +77,12 @@ maintainer_mode = maintainer_mode_opt == 'true' or \
 if is_dist_check
   message('Looks like a tarball is being tested. ' + \
   'Option "dist-warnings" is used instead of "warnings".')
-  warning_level = get_option('dist-warnings')
+  cpp_warnings = get_option('dist-warnings')
 else
-  warning_level = get_option('warnings')
+  cpp_warnings = get_option('warnings')
 endif
+warning_level = get_option('warning_level').to_int()
+werror = get_option('werror')
 build_deprecated_api = get_option('build-deprecated-api')
 build_atkmm_api = get_option('build-atkmm-api')
 build_x11_api_opt = get_option('build-x11-api')
@@ -213,7 +216,6 @@ if maintainer_mode and not mm_common_get.found()
   mm_common_get = find_program('mm-common-get', required: true)
 endif
 m4 = find_program('m4', required: maintainer_mode) # Used by gmmproc (in glibmm)
-perl = find_program('perl', required: maintainer_mode or build_documentation)
 doxygen = find_program('doxygen', required: build_documentation)
 dot = find_program('dot', required: build_documentation) # Used by Doxygen
 xsltproc = find_program('xsltproc', required: build_documentation)
@@ -229,18 +231,35 @@ check_dllexport_usage_py = script_dir / 'check-dllexport-usage.py'
 if maintainer_mode
   # Copy files to untracked/build_scripts and untracked/doc.
   run_command(mm_common_get, '--force', script_dir,
-    project_source_root / 'untracked' / 'docs')
+    project_source_root / 'untracked' / 'docs',
+    check: true,
+  )
 else
   cmd_py = '''
 import os
 import sys
 sys.exit(os.path.isfile("@0@"))
 '''.format(generate_binding_py)
-  file_exists = run_command(python3, '-c', cmd_py).returncode() != 0
+  file_exists = run_command(python3, '-c', cmd_py, check: false).returncode() != 0
   if not file_exists
     error('Missing files in untracked/. You must enable maintainer-mode.')
   endif
 endif
+
+# Check if perl is required and available.
+doc_perl_prop = run_command(
+  python3, doc_reference_py, 'get_script_property',
+  '', # MMDOCTOOLDIR is not used
+  'requires_perl',
+  check: false,
+)
+doc_requires_perl = true
+if doc_perl_prop.returncode() == 0 and doc_perl_prop.stdout() == 'false'
+  doc_requires_perl = false
+endif
+
+perl = find_program('perl', required: maintainer_mode or \
+  (build_documentation and doc_requires_perl))
 
 # gtkmm's own script files.
 gtkmm_script_dir = project_source_root / 'tools'
@@ -256,9 +275,6 @@ use_msvc14x_toolset_ver = get_option('msvc14x-parallel-installable')
 msvc14x_toolset_ver = ''
 
 if is_msvc
-  add_project_arguments(cpp_compiler.get_supported_arguments([ '/utf-8', '/wd4828']), language: 'cpp')
-  add_project_arguments(cpp_compiler.get_supported_arguments([ '/utf-8']), language: 'c')
-
   # Check for the first line in a file generated with gmmproc,
   # to see which gmmproc version was used
   if maintainer_mode
@@ -275,7 +291,7 @@ if is_msvc
 
   # Enable __declspec(dllexport) if the gtkmm headers generated from the .hg files
   # were generated using a recent enough gmmproc
-  build_shared_libs_directly = run_command(check_gmmproc_ver_cmd).returncode() == 0
+  build_shared_libs_directly = run_command(check_gmmproc_ver_cmd, check: false).returncode() == 0
   message('Using __declspec(dllexport) to build gtkmm: @0@'.format(build_shared_libs_directly ? 'YES' : 'NO'))
   if not build_shared_libs_directly
     gdkmm_extra_gendef_cpp_args += '-DGDKMM_USE_GENDEF'
@@ -283,7 +299,9 @@ if is_msvc
   endif
 
   if use_msvc14x_toolset_ver
-    if cpp_compiler.version().version_compare('>=19.20')
+    if cpp_compiler.version().version_compare('>=19.30')
+      msvc14x_toolset_ver = '-vc143'
+    elif cpp_compiler.version().version_compare('>=19.20')
       msvc14x_toolset_ver = '-vc142'
     elif cpp_compiler.version().version_compare('>=19.10')
       msvc14x_toolset_ver = '-vc141'
@@ -301,24 +319,25 @@ gtkmm_libname = meson.project_name() + msvc14x_toolset_ver + '-' + gtkmm_api_ver
 gdkmm_libname = 'gdkmm' + msvc14x_toolset_ver + '-' + gtkmm_api_version
 
 # Set compiler warnings.
+# Meson warns if any of the /W1, /W2, /W3, /W4, /Wall, -Wall, -Wextra, -Werror
+# compiler options are added with add_project_arguments().
+# Avoid such warnings, when possible.
+# See _warn_about_builtin_args() in meson/mesonbuild/interpreter/interpreter.py.
 warning_flags = []
-if warning_level == 'min'
-  if is_msvc
-    warning_flags = ['/W3']
-  else
-    warning_flags = ['-Wall']
+if cpp_warnings == 'min'
+  if warning_level == 0
+    warning_flags = is_msvc ? ['/W2'] : ['-Wall']
   endif
-elif warning_level == 'max' or warning_level == 'fatal'
-  if is_msvc
-    warning_flags = ['/W4']
-  else
-    warning_flags = '-pedantic -Wall -Wextra -Wformat-security -Wsuggest-override -Wshadow -Wno-long-long'.split()
+elif cpp_warnings == 'max' or cpp_warnings == 'fatal'
+  if warning_level < 3
+    warning_flags = is_msvc ? ['/W4'] : ['-pedantic', '-Wall', '-Wextra']
   endif
-  if warning_level == 'fatal'
-    if is_msvc
-      warning_flags += ['/WX']
-    else
-      warning_flags += ['-Werror']
+  if not is_msvc
+    warning_flags += '-Wformat-security -Wsuggest-override -Wshadow -Wno-long-long'.split()
+  endif
+  if cpp_warnings == 'fatal'
+    if not werror
+      warning_flags += is_msvc ? ['/WX'] : ['-Werror']
     endif
     deprecations = 'G PANGO ATK GDK GDK_PIXBUF GTK GLIBMM ATKMM PANGOMM CAIROMM SIGCXX'.split()
     foreach d : deprecations
@@ -330,6 +349,11 @@ endif
 warning_flags = cpp_compiler.get_supported_arguments(warning_flags)
 add_project_arguments(warning_flags, language: 'cpp')
 
+# Don't warn about a long string in a C file.
+# gnome.compile_resources() generates such a file.
+c_warning_flags = is_msvc ? [] : ['-Wno-overlength-strings']
+add_project_arguments(c_compiler.get_supported_arguments(c_warning_flags), language: 'c')
+
 gui_app_ldflags = []
 
 # MSVC: Ignore warnings that aren't really harmful, but make those
@@ -339,10 +363,26 @@ gui_app_ldflags = []
 #       otherwise the program will fail to link unless we defined a WinMain()
 #       for them
 if is_msvc
-  foreach wd : ['/FImsvc_recommended_pragmas.h', '/wd4267', '/EHsc', '/wd4250', '/wd4805']
-    disabled_warning = cpp_compiler.get_supported_arguments(wd)
-    add_project_arguments(disabled_warning, language: 'cpp')
-  endforeach
+  disable_warnings_list = [
+    '/FImsvc_recommended_pragmas.h', # Turn off harmless warnings but make potentially
+                                     # dangerous ones glaring, distributed with GLib
+    '/EHsc',  # avoid warnings caused by exception handling model used
+    '/utf-8', # Avoid C4819 unicode conversion warnings when building on CJK locales
+    '/wd4152', # nonstandard extension, function/data pointer conversion in expression
+    '/wd4245', # 'argument': conversion from 'int' to 'guint', signed/unsigned mismatch
+    '/wd4250', # 'class1' : inherits 'class2::member' via dominance
+    '/wd4702', # unreachable code
+    '/wd4706', # assignment within conditional expression
+    '/wd4805' # unsafe mix of type 'type' and type 'type' in operation
+  ]
+  if host_machine.cpu_family() == 'x86_64' or host_machine.cpu_family() == 'aarch64'
+  # 'var' : conversion from 'size_t' to 'type', possible loss of data (applies on 64-bit builds)
+    disable_warnings_list += '/wd4267'
+  endif
+  add_project_arguments(
+    cpp_compiler.get_supported_arguments(disable_warnings_list),
+    language: ['cpp', 'c']
+  )
   gui_app_ldflags += '-entry:mainCRTStartup'
 endif
 
@@ -364,7 +404,7 @@ subdir('docs/reference')
 if can_add_dist_script
   # Add a ChangeLog file to the distribution directory.
   meson.add_dist_script(
-    python3.path(), dist_changelog_py,
+    python3, dist_changelog_py,
     project_source_root,
   )
 
@@ -378,7 +418,7 @@ if can_add_dist_script
   # Add build scripts to the distribution directory, and delete .gitignore
   # files and an empty $MESON_PROJECT_DIST_ROOT/build/ directory.
   meson.add_dist_script(
-    python3.path(), dist_build_scripts_py,
+    python3, dist_build_scripts_py,
     project_source_root,
     'untracked' / 'build_scripts',
     dont_distribute,
@@ -434,7 +474,8 @@ summary = [
   meson.project_name() + ' ' + meson.project_version(),
   '',
   '         Maintainer mode: @0@@1@'.format(maintainer_mode_opt, real_maintainer_mode),
-  '       Compiler warnings: @0@'.format(warning_level),
+  '       Compiler warnings: @0@ (warning_level: @1@, werror: @2@)'. \
+                             format(cpp_warnings, warning_level, werror),
   '    Build deprecated API: @0@'.format(build_deprecated_api),
   '         Build atkmm API: @0@'.format(build_atkmm_api),
   '           Build X11 API: @0@@1@'.format(build_x11_api_opt, real_build_x11_api),
