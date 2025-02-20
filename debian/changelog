@@ -1,3 +1,9 @@
+gtkmm3.0 (3.24.9-1deepin1) unstable; urgency=medium
+
+  * revert t64
+
+ -- lhdjply <lhdjply@126.com>  Thu, 20 Feb 2025 13:30:24 +0800
+
 gtkmm3.0 (3.24.9-1) unstable; urgency=medium
 
   * New upstream release
