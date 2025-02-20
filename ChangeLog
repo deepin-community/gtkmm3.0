@@ -1,3 +1,117 @@
+2024-03-17  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  3.24.9
+
+2023-12-26  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Gtk::ScrolledWindow: Update the class description
+
+  Make it similar to the description of GtkScrolledWindow.
+
+2023-12-11  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  meson.build: Don't fail if warning_level=everything
+
+  See !87
+
+2023-08-11  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  tests/gdk_rgba: Avoid some comparisons for exact equality
+
+  See !77
+
+2023-08-09  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  gtk_docs.xml: Update documentation of GtkClipboard
+
+  * gtk/src/gtk_docs.xml: Update the documentation of GtkClipboard
+  signal and functions.
+  * tools/gen_scripts/gtk_generate_docs.sh: Exclude gtkclipboard-quartz.c.
+  It can hide better descriptions in gtkclipboard.c.
+
+2023-08-08  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  3.24.8
+
+2023-07-12  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Remove AUTHORS, HACKING, README.SUN; add info to README.md
+
+  Fixes #140
+
+2023-07-12  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Update gtkmm.doap
+
+2023-06-28  Chun-wei Fan  <fanchunwei@src.gnome.org>
+
+  README.win32: Convert to MarkDown
+
+  Make it easier on the eye in terms of formatting.  Also update some info there
+  in particular with Visual Studio builds so that the current situation is better
+  reflected
+
+2023-06-02  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  tools/m4/class_shared.m4: Add a comment
+
+2023-05-08  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  gtk/gtkmm/base.h: Fix GTK_VERSION_GT_MICRO
+
+  GTK_MICRO_VERSION>minor -> GTK_MICRO_VERSION>micro
+  Fixes #135
+
+2023-05-08  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Doxyfile.in: Remove obsolete entries
+
+2023-05-08  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  README.md: meson -> meson setup
+
+2023-01-08  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  meson.build: Simplify test if file exists
+
+2023-01-03  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  meson.build: Simplify lookup of python command
+
+  See libsigcplusplus PR#83
+
+2023-01-03  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Meson build: Don't copy files with configure_file()
+
+  It's deprecated from Meson 0.64. The replacement, fs.copyfile(),
+  is not useful here. It only copies from the source directory to
+  the build directory.
+
+2023-01-03  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  meson.build: Fix the evaluation of is_git_build on Windows
+
+  Fixes #131
+
+2022-09-27  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  meson.build: Compress the Python code for is_git_build
+
+2022-09-26  William Roy  <wroy@proton.me>
+
+  Fix meson.build .git check
+
+  Co-authored-by: Kjell Ahlstedt <kjellahlstedt@gmail.com>
+
+2022-09-26  William Roy  <wroy@proton.me>
+
+  Detect if we build from a git subtree
+
+2022-09-13  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
+
+  Convert README to README.md
+
 2022-09-12  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
 
   3.24.7
@@ -1486,155 +1600,4 @@
 
   and Gdk::Cairo::get_clip_rectangle(), create_region_from_surface(),
   draw_from_gl(). Fixes #25
-
-2018-08-20  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
-
-  Gtk::Grid: Add default values in attach()
-
-  Add default value = 1 for the width and height parameters in attach() and
-  attach_next_to(). Fixes #20
-
-2018-08-19  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
-
-  Gtk::Container: Deprecate focus chains
-
-  gtk_container_[set,unset,get]_focus_chain() have been deprecated
-  in branch gtk-3-24.
-
-2018-08-19  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
-
-  Gtk::Widget: Don't deprecate the show-all API
-
-  The show-all API has been deprecated in gtk+ 3.24, but that may have been
-  a premature action. It's still used in many gtk+ demo programs.
-  Add G_GNUC_[BEGIN,END]_IGNORE_DEPRECATIONS to be able to use the deprecated
-  gtk+ functions in non-deprecated gtkmm methods.
-
-2018-08-19  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
-
-  Gtk::StyleContext: Deprecate render_frame_gap()
-
-  gtk_render_frame_gap() has been deprecated in branch gtk-3-24.
-
-2018-08-19  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
-
-  Gtk::CssProvider: Deprecate get_default()
-
-  gtk_css_provider_get_default() has been deprecated in branch gtk-3-24.
-
-2018-04-04  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
-
-  Update the Menus demo
-
-  Don't mention the deprecated ImageMenuItem in the description.
-  Show the menu with accelerator keys.
-
-2018-02-11  Christian Schoenebeck  <schoenebeck@linuxsampler.org>
-
-  Gtk::MenuItem: Fix add_accel_label()
-
-  Make sure accelator keys are shown, by calling gtk_menu_item_set_label().
-  
-  https://mail.gnome.org/archives/gtkmm-list/2018-February/msg00006.html
-
-2018-01-24  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
-
-  Fix the Change Display demo
-
-  Make the demo more like the corresponding demo in gtk+, e.g. by using
-  Gdk::Seat::grab() and Gdk::Device::get_window_at_position().
-
-2017-12-28  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
-
-  Gdk: Deprecate flush(), screen_width(), etc.
-
-  * gdk/gdkmm/general.[cc|h]: Decrecate Gdk::screen_width(), screen_height(),
-  screen_width_mm(), screen_height_mm(), flush(). They have been deprecated
-  in gtk+ 3.22.
-  * gtk/src/fontbutton.hg: Disable deprecation warnings when fontbutton.cc
-  is compiled. gtk_font_button_set/get_font_name() and property font-name
-  are deprecated in gtk+ 3.22 in favor of gtk_font_chooser_set/get_font() and
-  GtkFontChooser:font. They can't be deprecated in gtkmm 3.22 because
-  FontChooser is not a base class of FontButton.
-  * demos/gtk-demo/example_change_display.cc: Don't use the deprecated
-  Gdk::flush().
-
-2017-10-27  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
-
-  Gtk::AboutDialog::get_logo(): Add refreturn
-
-2017-10-13  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
-
-  Add a specialization for Glib::Value<Cairo::RefPtr<Cairo::Surface>>
-
-  * gtk/src/cellrendererpixbuf.hg: Add a specialization for
-  Glib::Value<Cairo::RefPtr<Cairo::Surface>>. A specialization for
-  Glib::Value<Cairo::RefPtr<T>> can't be put in glibmm, because glibmm does
-  not depend on cairomm. It can't be put in cairomm, because cairomm does
-  not depend on glibmm. It's needed for property_surface(). Bug 788513
-
-2017-10-09  Daniel Boles  <dboles.src@gmail.com>
-
-  class_gtkobject.m4|object.h: Fix GtkObject→GObject
-
-  GtkObject was moved down to the GLib level, as GObject, 2 versions ago.
-  
-  https://bugzilla.gnome.org/show_bug.cgi?id=788587
-
-2017-09-13  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
-
-  Update build/.gitignore
-
-2017-09-13  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
-
-  tools/gen_scripts/: Update for gdk-pixbuf built with meson, and for gtk+-3
-
-  When gdk-pixbuf is built with meson instead of autotools, generated .h
-  and .c files are stored in gdk-pixbuf/build/gdk-pixbuf. Files in that
-  directory shall be read when the docs.xml and the .defs files are generated.
-  
-  Read .h and .c files from the gtk+-3 directory.
-
-2017-09-13  Murray Cumming  <murrayc@murrayc.com>
-
-  3.22.2
-
-2017-07-11  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
-
-  Gtk::PrintJob: Fix a call to Glib::throw_exception()
-
-  Glib::throw_exception(GError*) takes ownership of the GError.
-  SignalProxy_Custom_gtk_callback() must give a copy to throw_exception().
-
-2017-07-06  Daniel Boles  <dboles@src.gnome.org>
-
-  Gdk::RGBA: Update ctor(ustring) docs from GTK+
-
-  https://bugzilla.gnome.org/show_bug.cgi?id=784483
-
-2017-06-27  Kjell Ahlstedt  <kjellahlstedt@gmail.com>
-
-  Gtk::Editable, RecentChooser, Scale: Fix memory leaks
-
-  Editable::get_chars_vfunc(), RecentChooser::get_current_uri_vfunc() and
-  Scale::signal_format_value() shall delete the returned character array
-  after it has been copied to a Glib::ustring. Bug 783360
-
-2017-06-23  Murray Cumming  <murrayc@murrayc.com>
-
-  3.22.1
-
-2017-06-03  Daniel Boles  <dboles@src.gnome.org>
-
-  convert_gtk.m4: Remove redundant conversions
-
-  These are already defined in convert_glib.m4, which is included as-is.
-  
-  https://bugzilla.gnome.org/show_bug.cgi?id=783136
-
-2017-06-03  Daniel Boles  <dboles.src@gmail.com>
-
-  gtk-demo/demowindow: Remove unnecessary null check
-
-  There is no way that the pointer d can become null here.
 
