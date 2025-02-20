@@ -2,7 +2,7 @@
 
 # The resource compiler, used in demos/gtk-demo, requires a C compiler.
 project('gtkmm', 'c', 'cpp',
-  version: '3.24.7',
+  version: '3.24.9',
   license: 'LGPLv2.1+',
   default_options: [
     'cpp_std=c++11',
@@ -39,31 +39,31 @@ macos_darwin_versions = [
   '@0@.@1@'.format(libtool_soversion[0] + 1, libtool_soversion[1])
 ]
 
-# Use these instead of meson.source_root() and meson.build_root() in subdirectories.
-# source_root() and build_root() are not useful, if this is a subproject.
-project_source_root = meson.current_source_dir()
-project_build_root = meson.current_build_dir()
+# Source and build root directories of the current (sub)project.
+project_source_root = meson.project_source_root()
+project_build_root = meson.project_build_root()
 
 c_compiler = meson.get_compiler('c')
 cpp_compiler = meson.get_compiler('cpp')
 is_msvc = cpp_compiler.get_id() == 'msvc'
 is_host_windows = host_machine.system() == 'windows'
-python3 = import('python').find_installation()
-
-python_version = python3.language_version()
-python_version_req = '>= 3.5'
-if not python_version.version_compare(python_version_req)
-  error('Requires Python @0@, found @1@.'.format(python_version_req, python_version))
-endif
+python3 = find_program('python3', version: '>=3.5')
 
 # Do we build from a git repository?
-# Suppose we do if and only if a '.git' directory or file exists.
+# Suppose we do if and only if the meson.build file is tracked by git.
 cmd_py = '''
-import os
-import sys
-sys.exit(os.path.isdir("@0@") or os.path.isfile("@0@"))
-'''.format(project_source_root / '.git')
-is_git_build = run_command(python3, '-c', cmd_py, check: false).returncode() != 0
+import shutil, subprocess, sys
+git_exe = shutil.which('git')
+if not git_exe:
+  sys.exit(1)
+cmd = [ git_exe, 'ls-files', '--error-unmatch', 'meson.build' ]
+sys.exit(subprocess.run(cmd, cwd=sys.argv[1], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL).returncode)
+'''
+is_git_build = run_command(
+  python3, '-c', cmd_py,
+  project_source_root,
+  check: false,
+).returncode() == 0
 
 # Are we testing a dist tarball while it's being built?
 # There ought to be a better way. https://github.com/mesonbuild/meson/issues/6866
@@ -81,7 +81,12 @@ if is_dist_check
 else
   cpp_warnings = get_option('warnings')
 endif
-warning_level = get_option('warning_level').to_int()
+if get_option('warning_level') in ['0','1','2','3','4','5']
+  warning_level = get_option('warning_level').to_int()
+else
+  # For instance get_option('warning_level') == 'everything'
+  warning_level = 99
+endif
 werror = get_option('werror')
 build_deprecated_api = get_option('build-deprecated-api')
 build_atkmm_api = get_option('build-atkmm-api')
@@ -234,16 +239,8 @@ if maintainer_mode
     project_source_root / 'untracked' / 'docs',
     check: true,
   )
-else
-  cmd_py = '''
-import os
-import sys
-sys.exit(os.path.isfile("@0@"))
-'''.format(generate_binding_py)
-  file_exists = run_command(python3, '-c', cmd_py, check: false).returncode() != 0
-  if not file_exists
-    error('Missing files in untracked/. You must enable maintainer-mode.')
-  endif
+elif not import('fs').is_file(generate_binding_py)
+  error('Missing files in untracked/. You must enable maintainer-mode.')
 endif
 
 # Check if perl is required and available.
@@ -412,7 +409,6 @@ if can_add_dist_script
   dont_distribute = [
     'docs' / 'tutorial.moved_to_gtkmm_documentation_module',
     'examples.moved_to_gtkmm_documentation_module',
-    'HACKING',
     'win32_installer',
   ]
   # Add build scripts to the distribution directory, and delete .gitignore

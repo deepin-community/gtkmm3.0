@@ -1,3 +1,56 @@
+gtkmm3.0 (3.24.9-1) unstable; urgency=medium
+
+  * New upstream release
+  * Update lintian override
+  * Drop obsolete alternate gdk-pixbuf dependency
+  * Drop remaining patch: applied in new release
+
+ -- Jeremy Bícha <jbicha@ubuntu.com>  Mon, 01 Apr 2024 11:33:24 -0400
+
+gtkmm3.0 (3.24.8-3.2) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * Fix build depedency on dpkg-dev to use >= not >> (sorry).
+
+ -- Michael Hudson-Doyle <michael.hudson@ubuntu.com>  Tue, 05 Mar 2024 10:53:03 +1300
+
+gtkmm3.0 (3.24.8-3.1) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * Add build depedency on dpkg-dev (>= 1.22.5) for time_t transition.
+    (Closes: #1065278)
+
+ -- Michael Hudson-Doyle <mwhudson@debian.org>  Mon, 04 Mar 2024 23:41:24 +1300
+
+gtkmm3.0 (3.24.8-3) unstable; urgency=medium
+
+  * Use upstream patch to fix GdkRGBA test on i386
+  * Stop using debian/control.in and dh-sequence-gnome
+  * Update standards version to 4.6.2, no changes needed
+  * Upload to unstable (Closes: #1062193)
+
+ -- Jeremy Bícha <jbicha@ubuntu.com>  Wed, 28 Feb 2024 15:04:43 -0500
+
+gtkmm3.0 (3.24.8-2.1~exp1) experimental; urgency=medium
+
+  * Non-maintainer upload.
+  * Rename libraries for 64-bit time_t transition.
+
+ -- Graham Inggs <ginggs@debian.org>  Wed, 31 Jan 2024 16:23:01 +0000
+
+gtkmm3.0 (3.24.8-2) unstable; urgency=medium
+
+  * Cherry-pick 3 commits to fix GdkRGBA test on i386
+
+ -- Jeremy Bícha <jbicha@ubuntu.com>  Thu, 10 Aug 2023 16:36:55 -0400
+
+gtkmm3.0 (3.24.8-1) unstable; urgency=medium
+
+  * New upstream release
+  * debian/libgtkmm-3.0-1v5.docs: AUTHORS is no longer provided, README -> .md
+
+ -- Jeremy Bícha <jbicha@ubuntu.com>  Tue, 08 Aug 2023 13:50:34 -0400
+
 gtkmm3.0 (3.24.7-1) unstable; urgency=medium
 
   * New upstream release
